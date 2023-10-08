@@ -1,6 +1,5 @@
 import App from "./app/app";
-import "module-alias/register";
 
-const app = new App(2023);
+const app = new App(3000);
 
 app.listen();

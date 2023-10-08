@@ -1,10 +1,11 @@
+import { EmployeeModel } from "@/models/user";
+import { router } from "@/routes";
+import Logging from "@/utils/library/logging";
 import { Application } from "express";
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
-import { EmployeeModel } from "../models/user";
-import colors from "@colors/colors";
-import Logging from "../utils/library/logging";
+
 class App {
   public express: Application;
   public port: number;
@@ -40,6 +41,7 @@ class App {
       await employee.save();
       res.send({ employee: false });
     });
+    this.express.use(router);
   }
 
   public listen(): void {
