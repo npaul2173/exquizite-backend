@@ -1,10 +1,11 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose from "mongoose";
 
-interface IEmployee {
+export interface IEmployee {
   firstName: string;
   lastName: string;
   age: number;
   department: string;
+  email: string;
 }
 
 const employeeSchema = new mongoose.Schema<IEmployee>({
@@ -24,6 +25,13 @@ const employeeSchema = new mongoose.Schema<IEmployee>({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+  },
 });
 
-const Employee = mongoose.model<IEmployee>("Employee", employeeSchema);
+export const EmployeeModel = mongoose.model<IEmployee>(
+  "Employee",
+  employeeSchema
+);

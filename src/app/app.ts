@@ -1,4 +1,3 @@
-import { EmployeeModel } from "@/models/user";
 import { router } from "@/routes";
 import Logging from "@/utils/library/logging";
 import { Application } from "express";
@@ -16,15 +15,24 @@ class App {
 
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
-    this.initializeDatabaseConnection();
-    this.initializeControllers();
+    this.initializeDatabaseConnection()
+      .then(() => {
+        this.initializeControllers();
+      })
+      .catch((error) => {
+        console.error("Error initializing database:", error);
+      });
   }
 
-  private initializeDatabaseConnection(): void {
-    mongoose
-      .connect("mongodb://localhost/exquiziteDB")
-      .then(() => console.log("MongoDB connected"))
-      .catch((err) => console.log(err));
+  private async initializeDatabaseConnection() {
+    try {
+      mongoose
+        .connect("mongodb://localhost/exquiziteDB")
+        .then(() => console.log("MongoDB connected"))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      throw new Error("Error ---> " + error);
+    }
   }
 
   private initializeControllers(): void {
@@ -32,14 +40,6 @@ class App {
       res.status(StatusCodes.OK).json({
         message: "Port is Healthy 💪 and running 🏃🏃",
       });
-    });
-
-    this.express.post("/employee", async (req, res) => {
-      console.log(req.body);
-
-      const employee = new EmployeeModel(req.body);
-      await employee.save();
-      res.send({ employee: false });
     });
     this.express.use(router);
   }
