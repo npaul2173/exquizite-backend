@@ -1,6 +1,8 @@
+import { EmployeeModel } from "@/models/Employee";
 import { CreateEmployeeProps } from "@/models/Employee/interface";
 import EmployeeService from "@/service/employee.service";
 import { INext, IReq, IRes } from "@/utils/interfaces/express.interface";
+import { QueryParams } from "@/utils/interfaces/query.interface";
 
 class EmployeeController {
   private employeeService: EmployeeService;
@@ -9,7 +11,7 @@ class EmployeeController {
     this.employeeService = new EmployeeService();
   }
 
-  public createEmployee = async (req: IReq, res: IRes) => {
+  createEmployee = async (req: IReq, res: IRes) => {
     const {} = { ...req.body } as CreateEmployeeProps;
     const response = await this.employeeService.create(req.body);
     res.send(response);
@@ -18,6 +20,17 @@ class EmployeeController {
     } catch (error) {
       throw new Error("❌ Error: Could not create employee");
     }
+  };
+
+  listEmployee = async (req: IReq, res: IRes) => {
+    const queryParams = { ...req.query } as QueryParams;
+    const limit = queryParams.limit ? parseInt(queryParams.limit) : 10;
+    const cursor = req.query.cursor;
+
+    const data = await EmployeeModel.find().sort({ _id: 1 }).limit(limit);
+    const nextCursor = data[data.length - 1]._id;
+
+    res.json({ records: data.length, nextCursor, data });
   };
 }
 

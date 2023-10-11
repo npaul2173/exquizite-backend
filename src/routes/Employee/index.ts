@@ -28,8 +28,12 @@ class EmployeeRoutes {
 
   useRoutes() {
     this.post();
+    this.get();
   }
 
+  get() {
+    this.routes.get("/list", this.employeeController.listEmployee);
+  }
   post() {
     this.routes.post(
       "/create",
