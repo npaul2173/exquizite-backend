@@ -1,5 +1,5 @@
 import App from "./app/app";
 
-const app = new App(3005);
+const app = new App(3000);
 
 app.listen();

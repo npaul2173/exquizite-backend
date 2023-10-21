@@ -1,5 +1,5 @@
-import { EmployeeModel } from "@/models/Employee";
-import { CreateEmployeeProps } from "@/models/Employee/interface";
+import { EmployeeModel } from "@/models/employee";
+import { CreateEmployeeProps } from "@/models/employee/interface";
 import EmployeeService from "@/service/employee.service";
 import { INext, IReq, IRes } from "@/utils/interfaces/express.interface";
 import { QueryParams } from "@/utils/interfaces/query.interface";

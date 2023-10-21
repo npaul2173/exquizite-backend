@@ -1,5 +1,5 @@
-import { EmployeeModel } from "@/models/Employee";
-import { CreateEmployeeProps } from "@/models/Employee/interface";
+import { EmployeeModel } from "@/models/employee";
+import { CreateEmployeeProps } from "@/models/employee/interface";
 import { JsonResponse } from "@/utils/interfaces/response.interface";
 import { StatusCodes } from "http-status-codes";
 

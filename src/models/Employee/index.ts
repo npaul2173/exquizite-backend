@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
-
-export interface IEmployee {
-  firstName: string;
-  lastName: string;
-  age: number;
-  department: string;
-  email: string;
-}
+import { IEmployee } from "./interface";
 
 const employeeSchema = new mongoose.Schema<IEmployee>(
   {

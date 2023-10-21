@@ -1,4 +1,9 @@
-import { IEmployee } from ".";
-
+export interface IEmployee {
+  firstName: string;
+  lastName: string;
+  age: number;
+  department: string;
+  email: string;
+}
 type CreateEmployeeProps = IEmployee;
 export { CreateEmployeeProps };
