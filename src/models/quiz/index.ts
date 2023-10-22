@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { IQuiz } from "./interface";
 
-const quizSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     topic: { type: String, required: true },
@@ -13,4 +13,4 @@ const quizSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const QuizModel = mongoose.model<IQuiz>("Quiz", quizSchema);
+export const QuizModel = mongoose.model<IQuiz>("Quiz", schema);

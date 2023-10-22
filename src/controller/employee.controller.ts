@@ -12,8 +12,8 @@ class EmployeeController {
   }
 
   createEmployee = async (req: IReq, res: IRes) => {
-    const {} = { ...req.body } as CreateEmployeeProps;
-    const response = await this.employeeService.create(req.body);
+    const inputData = { ...req.body } as CreateEmployeeProps;
+    const response = await this.employeeService.create(inputData);
     res.send(response);
 
     try {

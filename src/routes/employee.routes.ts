@@ -1,5 +1,4 @@
-import EmployeeController from "@/controller/employee";
-import { IRes } from "@/utils/interfaces/express.interface";
+import EmployeeController from "@/controller/employee.controller";
 import { validateBody } from "@/utils/library/validate";
 import { createEmployeeValidation } from "@/validations/Employee";
 import { Router } from "express";

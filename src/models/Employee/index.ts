@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { IEmployee } from "./interface";
 
-const employeeSchema = new mongoose.Schema<IEmployee>(
+const schema = new mongoose.Schema<IEmployee>(
   {
     firstName: {
       type: String,
@@ -27,7 +27,4 @@ const employeeSchema = new mongoose.Schema<IEmployee>(
   { timestamps: true }
 );
 
-export const EmployeeModel = mongoose.model<IEmployee>(
-  "Employee",
-  employeeSchema
-);
+export const EmployeeModel = mongoose.model<IEmployee>("Employee", schema);
