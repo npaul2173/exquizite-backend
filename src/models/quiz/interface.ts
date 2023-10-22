@@ -1,7 +1,7 @@
 export interface IQuiz {
   title: string;
   topic: string;
-  // tags: string[];
+  tags: string[];
   coverImage: string;
   description: string;
   duration: number;
