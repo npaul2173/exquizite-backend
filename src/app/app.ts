@@ -1,6 +1,7 @@
 import { router } from "@/routes";
+import { IReq, IRes } from "@/utils/interfaces/express.interface";
 import Logging from "@/utils/library/logging";
-import { Application } from "express";
+import { Application, NextFunction } from "express";
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
@@ -22,6 +23,8 @@ class App {
       .catch((error) => {
         console.error("Error initializing database:", error);
       });
+
+    this.handleError();
   }
 
   private async initializeDatabaseConnection() {
@@ -35,6 +38,14 @@ class App {
     }
   }
 
+  private async handleError() {
+    this.express.use((err: any, req: IReq, res: IRes, next: NextFunction) => {
+      // Handle the error here.
+      res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .send("Something went wrong!  - Error Thrown");
+    });
+  }
   private initializeControllers(): void {
     this.express.get("/", (_, res) => {
       res.status(StatusCodes.OK).json({
