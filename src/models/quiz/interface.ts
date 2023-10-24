@@ -10,4 +10,6 @@ export interface IQuiz {
 }
 
 type CreateQuizProps = Omit<IQuiz, "createdAt" | "updatedAt">;
-export { CreateQuizProps };
+
+type GetQuizProps = { quizId: string };
+export { CreateQuizProps, GetQuizProps };

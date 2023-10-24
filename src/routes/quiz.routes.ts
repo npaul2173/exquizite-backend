@@ -15,8 +15,12 @@ class QuizRoutes {
 
   useRoutes() {
     this.post();
+    this.get();
   }
 
+  get() {
+    this.routes.get("/:quizId", this.quizController.getQuiz);
+  }
   post() {
     this.routes.post("/create", this.quizController.createQuiz);
   }

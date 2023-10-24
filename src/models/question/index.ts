@@ -16,4 +16,4 @@ const schema = new mongoose.Schema(
 );
 
 const MODEL_NAME = "Question";
-export const quizModel = mongoose.model<IQuestion>(MODEL_NAME, schema);
+export const QuestionModel = mongoose.model<IQuestion>(MODEL_NAME, schema);
