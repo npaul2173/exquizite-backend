@@ -18,7 +18,11 @@ class QuestionRoutes {
   }
 
   post() {
-    this.routes.post("/create", this.questionController.addQuestion);
+    this.routes.post("/create", this.questionController.createQuestion);
+    this.routes.post(
+      "/createMultiple",
+      this.questionController.createMultipleQuestions
+    );
   }
 }
 

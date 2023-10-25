@@ -12,3 +12,8 @@ export interface IQuestion {
 }
 
 export type CreateQuestionProps = Omit<IQuestion, "createdAt" | "updatedAt">;
+
+export type createMultipleQuestionsProps = {
+  quizId: string;
+  questions: CreateQuestionProps[];
+};

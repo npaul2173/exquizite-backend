@@ -1,7 +1,7 @@
 import { QuizModel } from "@/models/quiz";
 import { CreateQuizProps, GetQuizProps } from "@/models/quiz/interface";
 import QuizService from "@/service/quiz.service";
-import { getOKResponsive } from "@/utils/helpers/response.collection";
+import { getOKResponse } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
 import { JsonResponse } from "@/utils/interfaces/response.interface";
 
@@ -26,8 +26,7 @@ class QuizController {
     // const questions = await Question.find({ quizId });
     const quizId = req.params.quizId; // Access the quizId from the URL parameters
     const quiz = await this.quizService.findOne(quizId);
-
-    const response = getOKResponsive(quiz);
+    const response = getOKResponse(quiz);
     res.send(response);
   };
 }
