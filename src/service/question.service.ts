@@ -10,6 +10,14 @@ class QuestionService {
       throw new Error("❌ Error: Quiz Save service failed");
     }
   }
+
+  async findAll(input: { quizId: string }) {
+    try {
+      return await QuestionModel.find({ quizId: input.quizId });
+    } catch (error) {
+      throw new Error("❌ Error: Find service failed");
+    }
+  }
 }
 
 export default QuestionService;
