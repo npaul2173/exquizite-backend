@@ -1,4 +1,4 @@
-export interface IQuestion {
+export type IQuestion = {
   quizId: string;
   type: string;
   text: string;
@@ -9,10 +9,10 @@ export interface IQuestion {
   explanation: string;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
 export type CreateQuestionProps = Omit<IQuestion, "createdAt" | "updatedAt">;
-
+export type CreateMultipleQuestionsProps = { questions: CreateQuestionProps[] };
 export type createMultipleQuestionsProps = {
   quizId: string;
   questions: CreateQuestionProps[];

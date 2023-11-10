@@ -1,7 +1,7 @@
 import * as express from "express";
 
-export interface IReq extends express.Request {}
+export type IReq = express.Request;
 
-export interface IRes extends express.Response {}
+export type IRes = express.Response;
 
-export interface INext extends express.NextFunction {}
+export type INext = express.NextFunction;

@@ -1,4 +1,4 @@
-interface QueryParams {
+type QueryParams {
   cursor?: string;
   sort?: string;
   fields?: string;

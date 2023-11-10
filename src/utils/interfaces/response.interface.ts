@@ -1,4 +1,4 @@
-interface JsonResponse {
+type JsonResponse {
   statusCode: number;
   status: boolean;
   message?: string;

@@ -1,4 +1,4 @@
-export interface IQuiz {
+export type IQuiz = {
   title: string;
   topic: string;
   tags: string[];
@@ -7,7 +7,7 @@ export interface IQuiz {
   duration: number;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
 type CreateQuizProps = Omit<IQuiz, "createdAt" | "updatedAt">;
 
