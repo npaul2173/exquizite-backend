@@ -2,7 +2,7 @@ import { QuestionModel } from "@/models/question";
 import {
   CreateMultipleQuestionsProps,
   CreateQuestionProps,
-} from "@/models/question/interface";
+} from "@/models/question/type";
 import { IQuiz } from "@/models/quiz/interface";
 
 class QuestionService {

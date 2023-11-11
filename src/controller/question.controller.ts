@@ -1,7 +1,7 @@
 import {
   CreateMultipleQuestionsProps,
   CreateQuestionProps,
-} from "@/models/question/interface";
+} from "@/models/question/type";
 import { QuizModel } from "@/models/quiz";
 import QuestionService from "@/service/question.service";
 import {

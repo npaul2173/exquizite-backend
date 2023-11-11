@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IEmployee } from "./interface";
+import { IEmployee } from "./type";
 
 const schema = new mongoose.Schema<IEmployee>(
   {
