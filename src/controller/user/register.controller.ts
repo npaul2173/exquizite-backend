@@ -5,6 +5,7 @@ import {
   getCreateResponse,
 } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
+import Logging from "@/utils/library/logging";
 
 class RegistrationController {
   private userService: UserService;
@@ -18,7 +19,8 @@ class RegistrationController {
       const userData = await this.userService.findByUserName(
         inputData.userName
       );
-      if (userData) {
+
+      if (!!userData.length) {
         const message = "User already exists with that username";
         return getConflictResponse(res, message);
       } else {

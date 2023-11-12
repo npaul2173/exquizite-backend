@@ -27,6 +27,7 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isEmailVerified: { type: Boolean, required: true },
     avatar: String,
     dateOfBirth: String,
     userRoles: { type: [String] },
