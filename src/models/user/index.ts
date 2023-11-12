@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { IUserType } from "./type";
+import { IUser } from "./type";
 
 const schema = new mongoose.Schema(
   {
@@ -36,4 +36,4 @@ const schema = new mongoose.Schema(
 
 const MODEL_NAME = "user";
 
-export const UserTypeModel = mongoose.model<IUserType>(MODEL_NAME, schema);
+export const UserModel = mongoose.model<IUser>(MODEL_NAME, schema);

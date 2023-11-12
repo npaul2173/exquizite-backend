@@ -1,4 +1,4 @@
-export type IUserType = {
+export type IUser = {
   id: string;
   userName: string;
   email: string;
@@ -7,9 +7,11 @@ export type IUserType = {
   lastName: string;
   avatar?: string | null;
   dateOfBirth: string;
-  userRoles: string[];
+  // userRoles: string[];
   createdAt: Date;
   updatedAt: Date;
 };
 
-export type UserTypeProps = Omit<IUserType, "updatedAt" | "createdAt">;
+export type UserProps = Omit<IUser, "updatedAt" | "createdAt">;
+
+export type CreateUserProps = Omit<IUser, "createdAt" | "updatedAt" | "id">;

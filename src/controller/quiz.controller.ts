@@ -29,8 +29,7 @@ class QuizController {
     const quizId = req.params.quizId; // Access the quizId from the URL parameters
     const quiz = await this.quizService.findOne(quizId);
     const questions = await this.questionService.findAll({ quizId });
-    const response = getOKResponse({ quiz, questions });
-    res.send(response);
+    return getOKResponse(res, { quiz, questions });
   };
 }
 

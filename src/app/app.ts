@@ -5,6 +5,7 @@ import { Application, NextFunction } from "express";
 import express from "express";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
+import morgan from "morgan";
 
 class App {
   public express: Application;
@@ -16,6 +17,7 @@ class App {
 
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
+    this.express.use(morgan("dev"));
     this.initializeDatabaseConnection()
       .then(() => {
         this.initializeControllers();

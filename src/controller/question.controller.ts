@@ -22,10 +22,8 @@ class QuestionController {
       const quiz = await QuizModel.findById(inputData.quizId);
       if (quiz) {
         const response = await this.questionService.saveOne(inputData);
-        res.send(getConflictResponse("Quiz Created", response));
-      } else {
-        res.send(getConflictResponse("Not a valid quizId"));
-      }
+        return getConflictResponse(res, "Quiz Created", response);
+      } else getConflictResponse(res, "Not a valid quizId");
     } catch (error) {
       throw new Error("❌ Error: Could not add Question");
     }
@@ -35,11 +33,11 @@ class QuestionController {
     try {
       const inputData = { ...req.body } as CreateMultipleQuestionsProps;
       const responseData = await this.questionService.saveMultiple(inputData);
-      const response = getCreateResponse(
+      return getCreateResponse(
+        res,
         "Question successfully created",
         responseData
       );
-      res.send(response);
     } catch (error) {
       throw new Error("❌ Error: Could not create questions");
     }
