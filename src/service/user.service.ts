@@ -2,9 +2,9 @@ import { UserModel } from "@/models/user";
 import { CreateUserProps } from "@/models/user/type";
 
 class UserService {
-  async findByUserName(userName: string) {
+  async findByUserNameOrEmail(userName: string, email: string) {
     try {
-      return await UserModel.find({ userName });
+      return await UserModel.find({ $or: [{ email }, { userName }] });
     } catch (error) {
       throw new Error("❌ Error: Find user Service failed" + error);
     }

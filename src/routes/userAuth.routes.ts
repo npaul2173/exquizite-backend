@@ -1,4 +1,6 @@
 import RegistrationController from "@/controller/user/register.controller";
+import { validateBody } from "@/utils/library/validate";
+import { registerValidate } from "@/validations/user/register.validate";
 import { Router } from "express";
 
 class UserAuthRoutes {
@@ -18,7 +20,12 @@ class UserAuthRoutes {
   }
 
   post() {
-    this.routes.post("/register", this.registrationController.registerUser);
+    this.routes.post(
+      "/register",
+      registerValidate,
+      validateBody,
+      this.registrationController.registerUser
+    );
   }
 }
 

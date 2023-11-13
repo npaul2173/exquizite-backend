@@ -5,7 +5,6 @@ import {
   getCreateResponse,
 } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
-import Logging from "@/utils/library/logging";
 
 class RegistrationController {
   private userService: UserService;
@@ -16,12 +15,13 @@ class RegistrationController {
   registerUser = async (req: IReq, res: IRes) => {
     const inputData = { ...req.body } as CreateUserProps;
     try {
-      const userData = await this.userService.findByUserName(
-        inputData.userName
+      const userData = await this.userService.findByUserNameOrEmail(
+        inputData.userName,
+        inputData.email
       );
-
+      // res.send({ userData });
       if (!!userData.length) {
-        const message = "User already exists with that username";
+        const message = "User already exists with that username/email";
         return getConflictResponse(res, message);
       } else {
         const serviceResponse = await this.userService.createUser(inputData);
