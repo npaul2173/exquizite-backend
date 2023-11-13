@@ -33,7 +33,7 @@ class App {
     try {
       mongoose
         .connect("mongodb://localhost/exquiziteDB")
-        .then(() => Logging.log("MongoDB connected"))
+        .then(() => Logging.log("MongoDB connected-"))
         .catch((err) => Logging.error(err));
     } catch (error) {
       throw new Error("Error ---> " + error);
