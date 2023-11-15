@@ -32,7 +32,7 @@ class App {
   private async initializeDatabaseConnection() {
     try {
       mongoose
-        .connect("mongodb://localhost/exquiziteDB")
+        .connect("mongodb://127.0.0.1/exquiziteDB")
         .then(() => Logging.log("MongoDB connected-"))
         .catch((err) => Logging.error(err));
     } catch (error) {
