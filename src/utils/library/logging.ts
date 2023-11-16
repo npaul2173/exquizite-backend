@@ -3,31 +3,31 @@ import colors from "@colors/colors";
 export default class Logging {
   public static log = (args: any) => this.info(args);
 
-  public static success = (args: any) =>
+  public static success = (...args: any) =>
     console.log(
       colors.grey(`[${new Date().toLocaleString()}]`),
       colors.brightGreen(" [SUCCESS]"),
-      typeof args === "string" ? colors.cyan(args) : args
+      colors.green(args)
     );
 
-  public static info = (args: any) =>
+  public static info = (...args: any) =>
     console.log(
       colors.grey(`[${new Date().toLocaleString()}]`),
       colors.brightCyan(" [INFO]"),
-      typeof args === "string" ? colors.cyan(args) : args
+      colors.cyan(args)
     );
 
-  public static warn = (args: any) =>
+  public static warn = (...args: any) =>
     console.log(
       colors.grey(`[${new Date().toLocaleString()}]`),
       colors.brightYellow(" [WARN]"),
-      typeof args === "string" ? colors.yellow(args) : args
+      colors.yellow(args)
     );
 
-  public static error = (args: any) =>
+  public static error = (...args: any) =>
     console.log(
       colors.red(`[${new Date().toLocaleString()}]`),
       colors.brightRed(" [ERROR]"),
-      typeof args === "string" ? colors.red(args) : args
+      colors.red(args)
     );
 }
