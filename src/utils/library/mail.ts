@@ -13,7 +13,6 @@ export const sendEmail = async (res: IRes) => {
       pass: envVar.EMAIL_PASSWORD,
     },
   });
-  // uyoz iglt ikii vkxt
 
   const mailOptions: Mail.Options = {
     from: envVar.EMAIL_FROM,
