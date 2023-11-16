@@ -1,19 +1,32 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { ILogin } from "./type";
 
-const schema = new mongoose.Schema({
-  userNameOrEmail: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
+const schema = new mongoose.Schema(
+  {
+    userName: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
+    accessToken: {
+      type: String,
+      required: true,
+    },
+    _id: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+  { timestamps: true }
+);
 
-const MODEL_NAME = "login";
+const MODEL_NAME = "Sessions";
 
 export const LoginModel = mongoose.model<ILogin>(MODEL_NAME, schema);

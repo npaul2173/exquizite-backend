@@ -1,10 +1,17 @@
+import { ObjectId } from "mongoose";
+
 export type ILogin = {
-  userNameOrEmail: string;
-  password: string;
+  userName: string;
+  email: string;
   createdAt: Date;
   updatedAt: Date;
+  accessToken: string;
+  _id: ObjectId;
 };
 
-export type LoginProps = Omit<ILogin, "createdAt" | "updatedAt">;
+export type LoginUserProps = {
+  userNameOrEmail: string;
+  password: string;
+};
 
-export type LoginUserProps = Omit<ILogin, "createdAt" | "updatedAt">;
+export type CreateLoginProps = Omit<ILogin, "createdAt" | "updatedAt">;

@@ -15,11 +15,13 @@ class UserAuthRoutes {
     this.routes = Router();
     this.baseRoute = "/user";
     this.registrationController = new RegistrationController();
+    this.loginController = new LoginController();
     this.useRoutes();
   }
 
   useRoutes() {
     this.post();
+    this.login();
   }
 
   post() {

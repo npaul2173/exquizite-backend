@@ -34,4 +34,34 @@ const getConflictResponse = (res: IRes, message?: string, data?: any) => {
   return res.status(StatusCodes.CONFLICT).send(response);
 };
 
-export { getCreateResponse, getOKResponse, getConflictResponse };
+const getUnauthorizedResponse = (res: IRes, message?: string, data?: any) => {
+  const response = {
+    status: false,
+    statusCode: StatusCodes.UNAUTHORIZED,
+    data,
+    message,
+  } as JsonResponse;
+  return res.status(StatusCodes.CONFLICT).send(response);
+};
+
+const getInternalServerErrorResponse = (
+  res: IRes,
+  message?: string,
+  data?: any
+) => {
+  const response = {
+    status: false,
+    statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+    data,
+    message,
+  } as JsonResponse;
+  return res.status(StatusCodes.CONFLICT).send(response);
+};
+
+export {
+  getCreateResponse,
+  getOKResponse,
+  getConflictResponse,
+  getUnauthorizedResponse,
+  getInternalServerErrorResponse,
+};

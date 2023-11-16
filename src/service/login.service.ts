@@ -1,12 +1,31 @@
 import { LoginModel } from "@/models/login";
-import { LoginProps } from "@/models/login/type";
+import { CreateLoginProps, ILogin, LoginUserProps } from "@/models/login/type";
+import { UserModel } from "@/models/user";
+import { UserProps } from "@/models/user/type";
+import Logging from "@/utils/library/logging";
 
 class LoginService {
-  async userLogin(inputData: LoginProps) {
+  async userLogin(inputData: CreateLoginProps) {
     try {
-      return await LoginModel.create(inputData);
+      return await LoginModel.findOneAndUpdate(
+        { _id: inputData._id },
+        inputData,
+        { upsert: true }
+      );
     } catch (error) {
       throw new Error("❌ Error: Login user service failed" + error);
+    }
+  }
+
+  async findUserByCredentials(userNameOrEmail: string, password: string) {
+    try {
+      Logging.info(userNameOrEmail, password);
+      return UserModel.find({
+        $or: [{ email: userNameOrEmail }, { userName: userNameOrEmail }],
+        password,
+      });
+    } catch (error) {
+      throw new Error("❌ Error: Find user Service failed" + error);
     }
   }
 }

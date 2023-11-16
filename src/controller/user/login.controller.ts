@@ -1,39 +1,55 @@
+import { envVar } from "@/index";
 import { LoginUserProps } from "@/models/login/type";
 import LoginService from "@/service/login.service";
 import UserService from "@/service/user.service";
-import { getOKResponse } from "@/utils/helpers/response";
+import {
+  getInternalServerErrorResponse,
+  getOKResponse,
+  getUnauthorizedResponse,
+} from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
-import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
 
 class LoginController {
-  private userService: UserService;
   private loginService: LoginService;
   constructor() {
-    this.userService = new UserService();
     this.loginService = new LoginService();
   }
 
   loginUser = async (req: IReq, res: IRes) => {
     const inputData = { ...req.body } as LoginUserProps;
     try {
-      const loginData = await this.userService.findByUserNameOrEmail(
+      const loginData = await this.loginService.findUserByCredentials(
         inputData.userNameOrEmail,
-        inputData.userNameOrEmail
+        inputData.password
       );
-      if (loginData.length) {
-        const token = jwt.sign(
+
+      if (!!loginData.length) {
+        const { userName, email, _id } = loginData[0];
+        const accessToken = jwt.sign(
           {
             email: inputData.userNameOrEmail,
           },
-          "token123"
+          envVar.JSON_SECRET_KEY,
+          { expiresIn: "1h" }
         );
-        const serviceResponse = await this.loginService.userLogin(inputData);
+        const loginObj = {
+          userName,
+          email,
+          _id,
+          accessToken,
+        };
+        const serviceResponse = await this.loginService.userLogin(loginObj);
         const message = "Login successful";
-        return getOKResponse(res, message, serviceResponse);
+        return getOKResponse(res, serviceResponse, message);
+      } else {
+        const message = "Incorrect username/password";
+        return getUnauthorizedResponse(res, message);
       }
     } catch (error) {
-      throw new Error("❌ Error: Could not Login user");
+      const message = "Internal Server Error";
+      console.error("❌ Error: Could not Login user", error);
+      return getInternalServerErrorResponse(res, message);
     }
   };
 }
