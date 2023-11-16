@@ -8,7 +8,7 @@ const schema = new mongoose.Schema(
     text: { type: String, required: true },
     answers: { type: [String], required: true },
     correctAnswer: { type: Number, required: true },
-    difficulty: { type: String, required: true },
+    points: { type: Number, required: true },
     tags: { type: [String], required: true },
     explanation: { type: String },
   },

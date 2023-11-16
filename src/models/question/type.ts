@@ -4,9 +4,9 @@ export type IQuestion = {
   text: string;
   answers: string[];
   correctAnswer: number;
-  difficulty: string;
-  tags: string[];
-  explanation: string;
+  tags?: string[] | undefined;
+  explanation?: string | undefined;
+  points: number;
   createdAt: Date;
   updatedAt: Date;
 };
