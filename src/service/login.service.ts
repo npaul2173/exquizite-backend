@@ -8,9 +8,9 @@ class LoginService {
   async userLogin(inputData: CreateLoginProps) {
     try {
       return await LoginModel.findOneAndUpdate(
-        { _id: inputData._id },
+        { userId: inputData.userId },
         inputData,
-        { upsert: true }
+        { upsert: true, new: true }
       );
     } catch (error) {
       throw new Error("❌ Error: Login user service failed" + error);

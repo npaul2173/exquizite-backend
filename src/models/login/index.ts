@@ -19,7 +19,7 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    _id: {
+    userId: {
       type: Schema.Types.ObjectId,
       required: true,
     },

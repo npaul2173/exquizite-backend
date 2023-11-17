@@ -6,6 +6,7 @@ export type ILogin = {
   createdAt: Date;
   updatedAt: Date;
   accessToken: string;
+  userId: ObjectId;
   _id: ObjectId;
 };
 
@@ -14,4 +15,4 @@ export type LoginUserProps = {
   password: string;
 };
 
-export type CreateLoginProps = Omit<ILogin, "createdAt" | "updatedAt">;
+export type CreateLoginProps = Omit<ILogin, "createdAt" | "updatedAt" | "_id">;

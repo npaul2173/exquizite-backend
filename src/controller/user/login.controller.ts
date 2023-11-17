@@ -1,5 +1,5 @@
 import { envVar } from "@/index";
-import { LoginUserProps } from "@/models/login/type";
+import { CreateLoginProps, LoginUserProps } from "@/models/login/type";
 import LoginService from "@/service/login.service";
 import UserService from "@/service/user.service";
 import {
@@ -33,10 +33,10 @@ class LoginController {
           envVar.JSON_SECRET_KEY,
           { expiresIn: "1h" }
         );
-        const loginObj = {
+        const loginObj: CreateLoginProps = {
           userName,
           email,
-          _id,
+          userId: _id,
           accessToken,
         };
         const serviceResponse = await this.loginService.userLogin(loginObj);
