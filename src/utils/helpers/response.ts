@@ -11,7 +11,7 @@ const getOKResponse = (res: IRes, data?: any, message?: string) => {
     data,
     message,
   } as JsonResponse;
-  return res.status(StatusCodes.ACCEPTED).send(response);
+  return res.status(StatusCodes.OK).send(response);
 };
 
 const getCreateResponse = (res: IRes, message?: string, data?: any) => {
@@ -58,10 +58,21 @@ const getInternalServerErrorResponse = (
   return res.status(StatusCodes.CONFLICT).send(response);
 };
 
+const getNotFoundResponse = (res: IRes, message?: string, data?: any) => {
+  const response = {
+    status: false,
+    statusCode: StatusCodes.NOT_FOUND,
+    data,
+    message,
+  } as JsonResponse;
+  return res.status(StatusCodes.NOT_FOUND).send(response);
+};
+
 export {
   getCreateResponse,
   getOKResponse,
   getConflictResponse,
   getUnauthorizedResponse,
   getInternalServerErrorResponse,
+  getNotFoundResponse,
 };

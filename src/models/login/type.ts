@@ -16,3 +16,7 @@ export type LoginUserProps = {
 };
 
 export type CreateLoginProps = Omit<ILogin, "createdAt" | "updatedAt" | "_id">;
+
+export type UserFromTokenBody = {
+  accessToken: string;
+};

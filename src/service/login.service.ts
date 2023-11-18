@@ -44,6 +44,14 @@ class LoginService {
       throw new Error("❌ Error: Find user service failed - " + error);
     }
   }
+
+  async findUserByToken(accessToken: string) {
+    try {
+      return await LoginModel.findOne({ accessToken });
+    } catch (error) {
+      throw new Error("❌ Error: Find user service failed" + error);
+    }
+  }
 }
 
 export default LoginService;
