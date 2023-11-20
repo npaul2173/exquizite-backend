@@ -19,7 +19,7 @@ class TokenController {
       const userData: ILogin | null = await this.loginService.findUserByToken(
         tokenData.accessToken
       );
-      if (userData && Object.keys(userData).length) {
+      if (userData) {
         const message = "User Found Successfully";
         return getOKResponse(res, userData, message);
       } else {

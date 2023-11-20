@@ -4,8 +4,14 @@ import { UserModel } from "@/models/user";
 import { UserProps } from "@/models/user/type";
 import Logging from "@/utils/library/logging";
 import bcrypt from "bcrypt";
+import UserService from "./user.service";
+import { comparePassHash } from "@/utils/helpers/hashPass";
 
 class LoginService {
+  private userService: UserService;
+  constructor() {
+    this.userService = new UserService();
+  }
   async userLogin(inputData: CreateLoginProps) {
     try {
       return await LoginModel.findOneAndUpdate(
@@ -20,25 +26,20 @@ class LoginService {
 
   async findUserByCredentials(userNameOrEmail: string, password: string) {
     try {
-      const users = await UserModel.find({
-        $or: [{ email: userNameOrEmail }, { userName: userNameOrEmail }],
-      });
+      const user = await this.userService.findByUserNameOrEmail(
+        userNameOrEmail,
+        userNameOrEmail
+      );
 
-      if (!users || users.length === 0) {
-        return [];
-      }
-
-      const user = users[0];
-
-      const isPassMatch: boolean = await new Promise((resolve) => {
-        bcrypt.compare(password, user.password, (_err, isMatch) => {
-          resolve(isMatch);
-        });
-      });
-      if (isPassMatch) {
-        return users;
+      if (!user) {
+        return null;
       } else {
-        return [];
+        const isPassMatch = await comparePassHash(password, user.password);
+        if (isPassMatch) {
+          return user;
+        } else {
+          return null;
+        }
       }
     } catch (error) {
       throw new Error("❌ Error: Find user service failed - " + error);
