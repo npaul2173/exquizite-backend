@@ -1,5 +1,6 @@
 import { CreateUserProps } from "@/models/user/type";
 import UserService from "@/service/user.service";
+import { hashText } from "@/utils/helpers/hashPass";
 import {
   getConflictResponse,
   getCreateResponse,
@@ -19,14 +20,22 @@ class RegistrationController {
         inputData.userName,
         inputData.email
       );
-      // res.send({ userData });
-      if (!!userData.length) {
+
+      if (userData) {
         const message = "User already exists with that username/email";
         return getConflictResponse(res, message);
       } else {
-        const serviceResponse = await this.userService.createUser(inputData);
-        const message = "Registration successful";
-        return getCreateResponse(res, message, serviceResponse);
+        const hashPass = await hashText(inputData.password);
+        if (hashPass) {
+          const serviceResponse = await this.userService.createUser({
+            ...inputData,
+            password: hashPass,
+          });
+          const message = "Registration successful";
+          return getCreateResponse(res, message, serviceResponse);
+        } else {
+          throw new Error("❌ Error: Could not register user");
+        }
       }
     } catch (error) {
       throw new Error("❌ Error: Could not register user");

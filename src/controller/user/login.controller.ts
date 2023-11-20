@@ -24,8 +24,8 @@ class LoginController {
         inputData.password
       );
 
-      if (!!loginData.length) {
-        const { userName, email, _id } = loginData[0];
+      if (loginData) {
+        const { userName, email, _id } = loginData;
         const accessToken = jwt.sign(
           {
             email: inputData.userNameOrEmail,
