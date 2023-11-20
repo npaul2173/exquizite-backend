@@ -25,8 +25,6 @@ class UserAuthRoutes {
 
   useRoutes() {
     this.post();
-    this.login();
-    this.token();
   }
 
   post() {
@@ -36,16 +34,12 @@ class UserAuthRoutes {
       validateBody,
       this.registrationController.registerUser
     );
-  }
-  login() {
     this.routes.post(
       "/login",
       loginValidate,
       validateBody,
       this.loginController.loginUser
     );
-  }
-  token() {
     this.routes.post(
       "/getUser",
       tokenValidate,
