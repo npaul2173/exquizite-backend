@@ -1,4 +1,4 @@
-import { ILogin, UserFromTokenBody } from "@/models/login/type";
+import { ISession, UserFromTokenBody } from "@/models/session/type";
 import LoginService from "@/service/login.service";
 import {
   getInternalServerErrorResponse,
@@ -16,7 +16,7 @@ class TokenController {
   getUser = async (req: IReq, res: IRes) => {
     const tokenData = { ...req.body } as UserFromTokenBody;
     try {
-      const userData: ILogin | null = await this.loginService.findUserByToken(
+      const userData: ISession | null = await this.loginService.findUserByToken(
         tokenData.accessToken
       );
       if (userData) {

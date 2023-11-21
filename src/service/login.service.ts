@@ -1,11 +1,7 @@
-import { LoginModel } from "@/models/login";
-import { CreateLoginProps, ILogin, LoginUserProps } from "@/models/login/type";
-import { UserModel } from "@/models/user";
-import { UserProps } from "@/models/user/type";
-import Logging from "@/utils/library/logging";
-import bcrypt from "bcrypt";
-import UserService from "./user.service";
+import { LoginModel } from "@/models/session";
+import { CreateLoginProps } from "@/models/session/type";
 import { comparePassHash } from "@/utils/helpers/hashPass";
+import UserService from "./user.service";
 
 class LoginService {
   private userService: UserService;

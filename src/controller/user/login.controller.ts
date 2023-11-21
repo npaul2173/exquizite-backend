@@ -1,5 +1,5 @@
 import { envVar } from "@/index";
-import { CreateLoginProps, LoginUserProps } from "@/models/login/type";
+import { CreateLoginProps, LoginUserProps } from "@/models/session/type";
 import LoginService from "@/service/login.service";
 import UserService from "@/service/user.service";
 import {
