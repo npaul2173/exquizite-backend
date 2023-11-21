@@ -1,11 +1,8 @@
-import { LoginModel } from "@/models/login";
-import { CreateLoginProps, ILogin, LoginUserProps } from "@/models/login/type";
-import { UserModel } from "@/models/user";
-import { UserProps } from "@/models/user/type";
-import Logging from "@/utils/library/logging";
-import bcrypt from "bcrypt";
-import UserService from "./user.service";
+import { LoginModel } from "@/models/session";
+import { CreateLoginProps, LoginUserProps } from "@/models/session/type";
 import { comparePassHash } from "@/utils/helpers/hashPass";
+import UserService from "./user.service";
+import Logging from "@/utils/library/logging";
 
 class LoginService {
   private userService: UserService;
@@ -13,6 +10,7 @@ class LoginService {
     this.userService = new UserService();
   }
   async userLogin(inputData: CreateLoginProps) {
+    Logging.info(inputData);
     try {
       return await LoginModel.findOneAndUpdate(
         { userId: inputData.userId },
@@ -24,8 +22,9 @@ class LoginService {
     }
   }
 
-  async findUserByCredentials(userNameOrEmail: string, password: string) {
+  async findUserByCredentials(inputData: LoginUserProps) {
     try {
+      const { userNameOrEmail, password } = { ...inputData };
       const user = await this.userService.findByUserNameOrEmail(
         userNameOrEmail,
         userNameOrEmail

@@ -16,7 +16,7 @@ module.exports = {
         "test",
         "style",
         "merge branch",
-        "work-in-progress",
+        "inprogress",
       ],
     ],
     "scope-case": [2, "always", "kebab-case"],

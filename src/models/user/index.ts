@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { SchemaTypes } from "mongoose";
 import { IUser } from "./type";
 import bcrypt from "bcrypt";
 
@@ -28,10 +28,10 @@ const schema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    userRoleId: { type: SchemaTypes.ObjectId, required: true },
     isEmailVerified: { type: Boolean, required: true },
     avatar: String,
     dateOfBirth: String,
-    userRoles: { type: [String] },
   },
   { timestamps: true }
 );

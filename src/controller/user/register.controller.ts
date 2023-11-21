@@ -29,6 +29,7 @@ class RegistrationController {
         if (hashPass) {
           const serviceResponse = await this.userService.createUser({
             ...inputData,
+            userRoleId: "655c1d6c346a2d6b6d7d23d6",
             password: hashPass,
           });
           const message = "Registration successful";

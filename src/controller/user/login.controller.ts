@@ -1,13 +1,13 @@
 import { envVar } from "@/index";
-import { CreateLoginProps, LoginUserProps } from "@/models/login/type";
+import { CreateLoginProps, LoginUserProps } from "@/models/session/type";
 import LoginService from "@/service/login.service";
-import UserService from "@/service/user.service";
 import {
   getInternalServerErrorResponse,
   getOKResponse,
   getUnauthorizedResponse,
 } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
+import Logging from "@/utils/library/logging";
 import jwt from "jsonwebtoken";
 
 class LoginController {
@@ -19,24 +19,23 @@ class LoginController {
   loginUser = async (req: IReq, res: IRes) => {
     const inputData = { ...req.body } as LoginUserProps;
     try {
-      const loginData = await this.loginService.findUserByCredentials(
-        inputData.userNameOrEmail,
-        inputData.password
+      const userFound = await this.loginService.findUserByCredentials(
+        inputData
       );
 
-      if (loginData) {
-        const { userName, email, _id } = loginData;
+      if (userFound) {
         const accessToken = jwt.sign(
           {
-            email: inputData.userNameOrEmail,
+            roleId: userFound.userRoleId,
+            userId: userFound._id,
           },
           envVar.JSON_SECRET_KEY,
           { expiresIn: "1h" }
         );
+
+        Logging.warn({ data: jwt.decode(accessToken) });
         const loginObj: CreateLoginProps = {
-          userName,
-          email,
-          userId: _id,
+          userId: userFound._id,
           accessToken,
         };
         const serviceResponse = await this.loginService.userLogin(loginObj);

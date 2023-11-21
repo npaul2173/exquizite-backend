@@ -10,6 +10,13 @@ class UserService {
     }
   }
 
+  async findUserById(id: string) {
+    try {
+      return await UserModel.findById(id);
+    } catch (error) {
+      throw new Error("❌ Error: Find user Service by ID failed" + error);
+    }
+  }
   async createUser(inputData: CreateUserProps) {
     try {
       // isEmailVerified is made true by default for now. Will be made false when email verification module is complete
