@@ -1,11 +1,11 @@
 import { ObjectId } from "mongoose";
 
 export type ISession = {
-  createdAt: Date;
-  updatedAt: Date;
+  _id: ObjectId;
   accessToken: string;
   userId: ObjectId;
-  _id: ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type LoginUserProps = {

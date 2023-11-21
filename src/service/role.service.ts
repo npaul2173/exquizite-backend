@@ -6,8 +6,6 @@ class RoleService {
     try {
       return await RoleModel.create(inputData);
     } catch (error) {
-      console.log(error);
-
       throw new Error("❌ Error: Create Role service failed");
     }
   }

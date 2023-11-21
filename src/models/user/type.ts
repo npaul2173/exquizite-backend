@@ -9,10 +9,10 @@ export type IUser = {
   lastName: string;
   avatar?: string | null;
   dateOfBirth: string;
-  // userRoles: string[];
   isEmailVerified?: boolean;
   createdAt: Date;
   updatedAt: Date;
+  userRoleId: string;
 };
 
 export type UserProps = Omit<IUser, "updatedAt" | "createdAt">;

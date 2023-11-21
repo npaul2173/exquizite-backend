@@ -41,7 +41,7 @@ const getUnauthorizedResponse = (res: IRes, message?: string, data?: any) => {
     data,
     message,
   } as JsonResponse;
-  return res.status(StatusCodes.CONFLICT).send(response);
+  return res.status(StatusCodes.UNAUTHORIZED).send(response);
 };
 
 const getInternalServerErrorResponse = (
@@ -55,7 +55,7 @@ const getInternalServerErrorResponse = (
     data,
     message,
   } as JsonResponse;
-  return res.status(StatusCodes.CONFLICT).send(response);
+  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(response);
 };
 
 const getNotFoundResponse = (res: IRes, message?: string, data?: any) => {

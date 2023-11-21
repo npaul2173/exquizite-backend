@@ -1,10 +1,9 @@
+import AuthController from "@/controller/user/auth.controller";
 import LoginController from "@/controller/user/login.controller";
 import RegistrationController from "@/controller/user/register.controller";
-import TokenController from "@/controller/user/token.controller";
 import { validateBody } from "@/utils/library/validate";
 import { loginValidate } from "@/validations/user/login.validate";
 import { registerValidate } from "@/validations/user/register.validate";
-import { tokenValidate } from "@/validations/user/token.validate";
 import { Router } from "express";
 
 class UserAuthRoutes {
@@ -12,14 +11,13 @@ class UserAuthRoutes {
   public baseRoute: string;
   public registrationController: RegistrationController;
   public loginController: LoginController;
-  public tokenController: TokenController;
-
+  private authController: AuthController;
   constructor() {
     this.routes = Router();
     this.baseRoute = "/user";
     this.registrationController = new RegistrationController();
     this.loginController = new LoginController();
-    this.tokenController = new TokenController();
+    this.authController = new AuthController();
     this.useRoutes();
   }
 
@@ -28,6 +26,13 @@ class UserAuthRoutes {
   }
 
   post() {
+    this.routes.get(
+      "/authenticate",
+      this.authController.authenticate,
+      (req, res) => {
+        res.send({ message: "Im ok!", data: req.userData });
+      }
+    );
     this.routes.post(
       "/register",
       registerValidate,
@@ -39,12 +44,6 @@ class UserAuthRoutes {
       loginValidate,
       validateBody,
       this.loginController.loginUser
-    );
-    this.routes.post(
-      "/getUser",
-      tokenValidate,
-      validateBody,
-      this.tokenController.getUser
     );
   }
 }
