@@ -1,8 +1,6 @@
 import { ObjectId } from "mongoose";
 
-export type ILogin = {
-  userName: string;
-  email: string;
+export type ISession = {
   createdAt: Date;
   updatedAt: Date;
   accessToken: string;
@@ -15,7 +13,10 @@ export type LoginUserProps = {
   password: string;
 };
 
-export type CreateLoginProps = Omit<ILogin, "createdAt" | "updatedAt" | "_id">;
+export type CreateLoginProps = Omit<
+  ISession,
+  "createdAt" | "updatedAt" | "_id"
+>;
 
 export type UserFromTokenBody = {
   accessToken: string;
