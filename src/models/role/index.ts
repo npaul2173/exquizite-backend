@@ -6,7 +6,7 @@ const schema = new mongoose.Schema(
       type: SchemaTypes.String,
       required: true,
     },
-    permissions: [SchemaTypes.ObjectId],
+    permissions: { type: [SchemaTypes.ObjectId], required: true },
   },
   { timestamps: true }
 );
