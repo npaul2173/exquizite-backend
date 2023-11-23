@@ -7,21 +7,24 @@ import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import { envVar } from "..";
+import DatabaseSeed from "@/seeders/database.seed";
 
 class App {
   public express: Application;
   public port: number;
+  private databaseSeed: DatabaseSeed;
 
   constructor(port: number) {
     this.port = port;
     this.express = express();
-
+    this.databaseSeed = new DatabaseSeed();
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(morgan("dev"));
     this.initializeDatabaseConnection()
       .then(() => {
         this.initializeControllers();
+        this.databaseSeed.initializeDatabaseModels();
       })
       .catch((error) => {
         console.error("Error initializing database:", error);

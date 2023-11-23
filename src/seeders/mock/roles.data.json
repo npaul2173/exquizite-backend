@@ -1,0 +1,14 @@
+[
+  {
+    "name": "ADMIN",
+    "except": ["ATTEMPT_QUIZ"]
+  },
+  {
+    "name": "USER",
+    "except": ["SEE_ADMIN_KEY_METRICS", "CREATE_SUB_ADMIN"]
+  },
+  {
+    "name": "GUEST",
+    "include": ["ATTEMPT_QUIZ"]
+  }
+]

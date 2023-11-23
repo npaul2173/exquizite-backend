@@ -2,7 +2,7 @@ import { QuizModel } from "@/models/quiz";
 import { CreateQuizProps, GetQuizProps } from "@/models/quiz/interface";
 import QuestionService from "@/service/question.service";
 import QuizService from "@/service/quiz.service";
-import { getOKResponse } from "@/utils/helpers/response";
+import { getNoContentResponse, getOKResponse } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
 import { JsonResponse } from "@/utils/interfaces/response.interface";
 
@@ -30,6 +30,11 @@ class QuizController {
     const quiz = await this.quizService.findOne(quizId);
     const questions = await this.questionService.findAll({ quizId });
     return getOKResponse(res, { quiz, questions });
+  };
+
+  publishQuiz = async (_: IReq, res: IRes) => {
+    const message = "Quiz published successfully";
+    return getNoContentResponse(res, message);
   };
 }
 

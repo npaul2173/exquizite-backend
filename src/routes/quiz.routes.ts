@@ -22,6 +22,7 @@ class QuizRoutes {
     this.routes.get("/:quizId", this.quizController.getQuiz);
   }
   post() {
+    this.routes.post("/publish", this.quizController.publishQuiz);
     this.routes.post("/create", this.quizController.createQuiz);
   }
 }

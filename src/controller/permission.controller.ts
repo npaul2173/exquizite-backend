@@ -1,6 +1,6 @@
 import { CreatePermission } from "@/models/permission/types";
 import PermissionService from "@/service/permission.service";
-import { getCreateResponse, getOKResponse } from "@/utils/helpers/response";
+import { getCreateResponse } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
 
 class PermissionController {
