@@ -1,17 +1,15 @@
 import {
-  optionalValidation,
+  requiredObjectValidation,
   requiredValidation,
 } from "@/utils/library/validate";
 
 const validation = [
-  requiredValidation("title", "Title").isLength({ min: 1 }),
-  requiredValidation("topic", "Topic").isLength({ min: 1 }),
   requiredValidation("quizId", "Quiz Id")
     .isMongoId()
     .withMessage("Not a valid quiz id"),
-  optionalValidation("duration")
-    .isNumeric()
-    .withMessage("Duration must be a number"),
+  requiredObjectValidation("patch", "Patch").withMessage(
+    "Patch must be an object having at least one key"
+  ),
 ];
 
 export { validation as updateQuizValidation };

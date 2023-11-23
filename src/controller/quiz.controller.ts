@@ -47,9 +47,7 @@ class QuizController {
         return getNotFoundResponse(res, message);
       }
     } catch (error) {
-      const message = "Internal Server Error";
-      console.error("❌ Error: Could not update quiz", error);
-      return getInternalServerErrorResponse(res, message);
+      return getInternalServerErrorResponse(res, error);
     }
   };
 }

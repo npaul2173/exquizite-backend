@@ -13,6 +13,9 @@ type CreateQuizProps = Omit<IQuiz, "createdAt" | "updatedAt">;
 
 type GetQuizProps = { quizId: string };
 
-type UpdateQuizProps = CreateQuizProps & { quizId: string };
+type UpdateQuizProps = {
+  quizId: string;
+  patch: CreateQuizProps;
+};
 
 export { CreateQuizProps, GetQuizProps, UpdateQuizProps };
