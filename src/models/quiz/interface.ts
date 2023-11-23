@@ -12,4 +12,10 @@ export type IQuiz = {
 type CreateQuizProps = Omit<IQuiz, "createdAt" | "updatedAt">;
 
 type GetQuizProps = { quizId: string };
-export { CreateQuizProps, GetQuizProps };
+
+type UpdateQuizProps = {
+  quizId: string;
+  patch: CreateQuizProps;
+};
+
+export { CreateQuizProps, GetQuizProps, UpdateQuizProps };
