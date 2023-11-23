@@ -1,10 +1,13 @@
-import { QuizModel } from "@/models/quiz";
-import { CreateQuizProps, GetQuizProps } from "@/models/quiz/interface";
+import { CreateQuizProps, UpdateQuizProps } from "@/models/quiz/interface";
 import QuestionService from "@/service/question.service";
 import QuizService from "@/service/quiz.service";
-import { getOKResponse } from "@/utils/helpers/response";
+import {
+  getInternalServerErrorResponse,
+  getNotFoundResponse,
+  getOKResponse,
+} from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
-import { JsonResponse } from "@/utils/interfaces/response.interface";
+import Logging from "@/utils/library/logging";
 
 class QuizController {
   private quizService: QuizService;
@@ -30,6 +33,24 @@ class QuizController {
     const quiz = await this.quizService.findOne(quizId);
     const questions = await this.questionService.findAll({ quizId });
     return getOKResponse(res, { quiz, questions });
+  };
+
+  updateQuiz = async (req: IReq, res: IRes) => {
+    const inputData = { ...req.body } as UpdateQuizProps;
+    try {
+      const quiz = await this.quizService.updateQuiz(inputData);
+      if (quiz) {
+        const message = "Quiz updated successfully";
+        return getOKResponse(res, quiz, message);
+      } else {
+        const message = "Quiz not found";
+        return getNotFoundResponse(res, message);
+      }
+    } catch (error) {
+      const message = "Internal Server Error";
+      console.error("❌ Error: Could not update quiz", error);
+      return getInternalServerErrorResponse(res, message);
+    }
   };
 }
 

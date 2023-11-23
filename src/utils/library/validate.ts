@@ -17,4 +17,8 @@ const requiredValidation = (column: string, name: string) => {
   return body(column).exists().withMessage(`${name} is required`);
 };
 
-export { requiredValidation, validateBody };
+const optionalValidation = (column: string) => {
+  return body(column).optional();
+};
+
+export { optionalValidation, requiredValidation, validateBody };
