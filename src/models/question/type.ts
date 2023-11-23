@@ -4,7 +4,6 @@ export type IQuestion = {
   text: string;
   answers: string[];
   correctAnswer: number;
-  tags?: string[] | undefined;
   explanation?: string | undefined;
   points: number;
   createdAt: Date;
