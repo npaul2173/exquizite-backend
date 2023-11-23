@@ -18,9 +18,11 @@ const requiredValidation = (column: string, name: string) => {
 };
 
 const requiredObjectValidation = (column: string, name: string) => {
-  return requiredValidation(column, name).custom((value) => {
-    return Object.keys(value).length !== 0;
-  });
+  return requiredValidation(column, name)
+    .custom((value) => {
+      return Object.keys(value).length !== 0;
+    })
+    .withMessage(`${name} is an empty object`);
 };
 
 export { requiredValidation, validateBody, requiredObjectValidation };
