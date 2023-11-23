@@ -1,5 +1,7 @@
+import { ObjectId } from "mongoose";
+
 export type IUser = {
-  id: string;
+  _id: ObjectId;
   userName: string;
   email: string;
   password: string;
@@ -7,15 +9,15 @@ export type IUser = {
   lastName: string;
   avatar?: string | null;
   dateOfBirth: string;
-  // userRoles: string[];
   isEmailVerified?: boolean;
   createdAt: Date;
   updatedAt: Date;
+  userRoleId: string;
 };
 
 export type UserProps = Omit<IUser, "updatedAt" | "createdAt">;
 
 export type CreateUserProps = Omit<
   IUser,
-  "createdAt" | "updatedAt" | "id" | "isEmailVerified"
+  "createdAt" | "updatedAt" | "_id" | "isEmailVerified"
 >;

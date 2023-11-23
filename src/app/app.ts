@@ -6,6 +6,7 @@ import express from "express";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import morgan from "morgan";
+import { envVar } from "..";
 
 class App {
   public express: Application;
@@ -32,8 +33,8 @@ class App {
   private async initializeDatabaseConnection() {
     try {
       mongoose
-        .connect("mongodb://localhost/exquiziteDB")
-        .then(() => Logging.info("MongoDB connected-"))
+        .connect(envVar.DB_PATH)
+        .then(() => Logging.log("MongoDB connected-"))
         .catch((err) => Logging.error(err));
     } catch (error) {
       throw new Error("Error ---> " + error);
