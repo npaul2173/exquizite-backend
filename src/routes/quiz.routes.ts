@@ -1,7 +1,7 @@
 import QuizController from "@/controller/quiz.controller";
 import AuthController from "@/controller/user/auth.controller";
 import { validateBody } from "@/utils/library/validate";
-import { updateQuizValidation } from "@/validations/quiz";
+import { publishValidation, updateQuizValidation } from "@/validations/quiz";
 import { Router } from "express";
 
 class QuizRoutes {
@@ -23,17 +23,25 @@ class QuizRoutes {
   }
 
   get() {
-    this.routes.get("/:quizId", this.quizController.getQuiz);
+    this.routes.get(
+      "/:quizId",
+      this.authController.authenticate,
+      this.quizController.getQuiz
+    );
   }
   post() {
     this.routes.post(
       "/unPublish",
       this.authController.authenticate,
+      publishValidation,
+      validateBody,
       this.quizController.unPublishQuiz
     );
     this.routes.post(
       "/publish",
       this.authController.authenticate,
+      publishValidation,
+      validateBody,
       this.quizController.publishQuiz
     );
     this.routes.post("/create", this.quizController.createQuiz);

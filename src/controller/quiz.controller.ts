@@ -2,6 +2,7 @@ import { CreateQuizProps, UpdateQuizProps } from "@/models/quiz/interface";
 import QuestionService from "@/service/question.service";
 import QuizService from "@/service/quiz.service";
 import {
+  getConflictResponse,
   getInternalServerErrorResponse,
   getNoContentResponse,
   getNotFoundResponse,
@@ -70,10 +71,15 @@ class QuizController {
   updateQuiz = async (req: IReq, res: IRes) => {
     const inputData = { ...req.body } as UpdateQuizProps;
     try {
-      const quiz = await this.quizService.updateQuiz(inputData);
-      if (quiz) {
-        const message = "Quiz updated successfully";
-        return getOKResponse(res, quiz, message);
+      const quizFound = await this.quizService.findOne(inputData.quizId);
+      if (quizFound) {
+        if (quizFound.isPublished)
+          return getConflictResponse(res, "Published quiz cannot be modified");
+        else {
+          const quiz = await this.quizService.updateQuiz(inputData);
+          const message = "Quiz updated successfully";
+          return getOKResponse(res, quiz, message);
+        }
       } else {
         const message = "Quiz not found";
         return getNotFoundResponse(res, message);

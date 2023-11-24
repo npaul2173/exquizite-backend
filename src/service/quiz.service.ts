@@ -50,7 +50,7 @@ class QuizService {
       return await QuizModel.findByIdAndUpdate(
         quizId,
         { isPublished: false },
-        { new: false }
+        { new: true }
       );
     } catch (error) {
       throw new Error("❌ Error: Quiz publish service failed" + error);
@@ -59,10 +59,7 @@ class QuizService {
 
   async updateQuiz(inputData: UpdateQuizProps) {
     try {
-      const { quizId } = inputData;
-      return await QuizModel.findByIdAndUpdate(quizId, inputData.patch, {
-        new: true,
-      });
+      return await QuizModel.updateOne(inputData.patch);
     } catch (error) {
       throw new Error("❌ Error: Quiz update service failed" + error);
     }
