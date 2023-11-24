@@ -34,8 +34,24 @@ class QuizService {
     }
   }
 
-  async publishQuiz(quizId: string) {
+  async publish(quizId: string) {
     try {
+      return await QuizModel.findByIdAndUpdate(
+        quizId,
+        { isPublished: true },
+        { new: true }
+      );
+    } catch (error) {
+      throw new Error("❌ Error: Quiz publish service failed" + error);
+    }
+  }
+  async unPublish(quizId: string) {
+    try {
+      return await QuizModel.findByIdAndUpdate(
+        quizId,
+        { isPublished: false },
+        { new: false }
+      );
     } catch (error) {
       throw new Error("❌ Error: Quiz publish service failed" + error);
     }

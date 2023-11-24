@@ -9,7 +9,6 @@ class RoleController {
   constructor() {
     this.roleService = new RoleService();
   }
-
   createRole = async (req: IReq, res: IRes) => {
     const inputData = { ...req.body } as CreateRoleProps;
     try {

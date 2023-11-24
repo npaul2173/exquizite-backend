@@ -29,16 +29,42 @@ class QuizController {
   };
 
   getQuiz = async (req: IReq, res: IRes) => {
-    // const questions = await Question.find({ quizId });
     const quizId = req.params.quizId; // Access the quizId from the URL parameters
     const quiz = await this.quizService.findOne(quizId);
     const questions = await this.questionService.findAll({ quizId });
     return getOKResponse(res, { quiz, questions });
   };
 
-  publishQuiz = async (_: IReq, res: IRes) => {
-    const message = "Quiz published successfully";
-    return getNoContentResponse(res, message);
+  publishQuiz = async (req: IReq, res: IRes) => {
+    const { quizId } = { ...req.body } as { quizId: string };
+    try {
+      const quiz = await this.quizService.publish(quizId);
+      if (quiz) {
+        const message = "Quiz published successfully";
+        return getOKResponse(res, quiz, message);
+      } else {
+        const message = "Quiz not found";
+        return getNotFoundResponse(res, message);
+      }
+    } catch (error) {
+      return getInternalServerErrorResponse(res, error);
+    }
+  };
+
+  unPublishQuiz = async (req: IReq, res: IRes) => {
+    const { quizId } = { ...req.body } as { quizId: string };
+    try {
+      const quiz = await this.quizService.unPublish(quizId);
+      if (quiz) {
+        const message = "Quiz unpublished successfully";
+        return getOKResponse(res, quiz, message);
+      } else {
+        const message = "Quiz not found";
+        return getNotFoundResponse(res, message);
+      }
+    } catch (error) {
+      return getInternalServerErrorResponse(res, error);
+    }
   };
 
   updateQuiz = async (req: IReq, res: IRes) => {
