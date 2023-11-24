@@ -1,16 +1,14 @@
-import { PermissionModel } from "@/models/permission";
-import { MetaDataModel } from "@/models/metadata";
-import Logging from "@/utils/library/logging";
-import { RoleModel } from "@/models/role";
-import { CreateQuizProps } from "@/models/quiz/interface";
-
-import { CreateQuestionProps } from "@/models/question/type";
-// Importing mock data
 import permissionData from "./mock/permissions.data.json";
 import rolesJsonData from "./mock/roles.data.json";
 import quizJsonData from "./mock/quiz.data.json";
+import { PermissionModel } from "@/models/permission";
+import { MetaDataModel } from "@/models/metadata";
+import { RoleModel } from "@/models/role";
+import { CreateQuizProps } from "@/models/quiz/interface";
+import { CreateQuestionProps } from "@/models/question/type";
 import { QuizModel } from "@/models/quiz";
 import { QuestionModel } from "@/models/question";
+import Logging from "@/utils/library/logging";
 
 class DatabaseSeed {
   constructor() {}
@@ -18,8 +16,10 @@ class DatabaseSeed {
   async initializeDatabaseModels() {
     const data = await MetaDataModel.findOne();
 
-    Logging.info(data);
     if (!data) {
+      Logging.warn(
+        "Seeding started........................................🏁 "
+      );
       // 1. Seeding the permissions collection
       const pmsCreated = await PermissionModel.insertMany(permissionData);
 
@@ -71,6 +71,9 @@ class DatabaseSeed {
 
       // Setting a flag point to ideate that seeding has been done throught the application
       await MetaDataModel.create({ initialized: true });
+      Logging.success(
+        "Seeding complete ✅....................................."
+      );
     }
   }
 }

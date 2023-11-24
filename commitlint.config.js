@@ -10,6 +10,7 @@ module.exports = {
         "config",
         "hotfix",
         "feature",
+        "update",
         "docs",
         "refactor",
         "revert",
