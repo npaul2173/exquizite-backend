@@ -15,6 +15,15 @@ const getOKResponse = (res: IRes, data?: any, message?: string) => {
   return res.status(StatusCodes.OK).send(response);
 };
 
+const getNoContentResponse = (res: IRes, message: string) => {
+  const response = {
+    status: true,
+    statusCode: StatusCodes.NO_CONTENT,
+    message,
+  } as JsonResponse;
+  return res.status(StatusCodes.NO_CONTENT).send(response);
+};
+
 const getCreateResponse = (res: IRes, message?: string, data?: any) => {
   const response = {
     status: true,
@@ -76,4 +85,5 @@ export {
   getUnauthorizedResponse,
   getInternalServerErrorResponse,
   getNotFoundResponse,
+  getNoContentResponse,
 };

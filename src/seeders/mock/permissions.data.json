@@ -1,0 +1,46 @@
+[
+  {
+    "name": "CREATE_QUIZ",
+    "description": "Users can create quiz"
+  },
+  {
+    "name": "EDIT_QUIZ",
+    "description": "Users can edit quiz"
+  },
+  {
+    "name": "DELETE_QUIZ",
+    "description": "Users can delete quiz"
+  },
+  {
+    "name": "CREATE_QUESTIONS",
+    "description": "Users can create questions"
+  },
+  {
+    "name": "EDIT_QUESTION",
+    "description": "Users can edit questions"
+  },
+  {
+    "name": "DELETE_QUESTION",
+    "description": "Users can delete questions"
+  },
+  {
+    "name": "ATTEMPT_QUIZ",
+    "description": "Users can attempt a quiz"
+  },
+  {
+    "name": "CREATE_ROLES",
+    "description": "Users can roles with custom permissions"
+  },
+  {
+    "name": "PUBLISH_QUIZ",
+    "description": "Users can publish the quiz that was created"
+  },
+  {
+    "name": "CREATE_SUB_ADMIN",
+    "description": "Users can create sub admins"
+  },
+  {
+    "name": "SEE_ADMIN_KEY_METRICS",
+    "description": "Users cannot see critical admin key metrics data"
+  }
+]

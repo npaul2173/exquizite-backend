@@ -4,12 +4,13 @@ import {
 } from "@/utils/library/validate";
 
 const validation = [
-  requiredValidation("quizId", "Quiz Id")
+  requiredValidation("quizId", "QuizId")
     .isMongoId()
-    .withMessage("Not a valid quiz id"),
+    .withMessage("Not a valid QuizId"),
   requiredObjectValidation("patch", "Patch").withMessage(
     "Patch must be an object having at least one key"
   ),
 ];
 
-export { validation as updateQuizValidation };
+const publishValidation = [requiredValidation("quizId", "QuizId")];
+export { validation as updateQuizValidation, publishValidation };

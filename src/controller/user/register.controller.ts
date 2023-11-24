@@ -1,4 +1,5 @@
 import { CreateUserProps } from "@/models/user/type";
+import RoleService from "@/service/role.service";
 import UserService from "@/service/user.service";
 import { hashText } from "@/utils/helpers/hashPass";
 import {
@@ -9,8 +10,10 @@ import { IReq, IRes } from "@/utils/interfaces/express.interface";
 
 class RegistrationController {
   private userService: UserService;
+  private roleService: RoleService;
   constructor() {
     this.userService = new UserService();
+    this.roleService = new RoleService();
   }
 
   registerUser = async (req: IReq, res: IRes) => {
@@ -25,11 +28,12 @@ class RegistrationController {
         const message = "User already exists with that username/email";
         return getConflictResponse(res, message);
       } else {
+        const userRole = await this.roleService.getUserRole();
         const hashPass = await hashText(inputData.password);
         if (hashPass) {
           const serviceResponse = await this.userService.createUser({
             ...inputData,
-            userRoleId: "655c1d6c346a2d6b6d7d23d6",
+            userRoleId: userRole?._id.toString()!,
             password: hashPass,
           });
           const message = "Registration successful";

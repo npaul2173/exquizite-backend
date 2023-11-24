@@ -21,7 +21,8 @@ class UserService {
     try {
       // isEmailVerified is made true by default for now. Will be made false when email verification module is complete
       const inputDataNew = { ...inputData, isEmailVerified: true };
-      return await UserModel.create(inputDataNew);
+      const data = await UserModel.create(inputDataNew);
+      return await UserModel.findById(data._id).select("-password -userRoleId");
     } catch (error) {
       throw new Error("❌ Error: Create user service failed" + error);
     }

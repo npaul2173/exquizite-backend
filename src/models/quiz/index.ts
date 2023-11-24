@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { SchemaTypes } from "mongoose";
 import { IQuiz } from "./interface";
 
 const schema = new mongoose.Schema(
@@ -9,6 +9,7 @@ const schema = new mongoose.Schema(
     coverImage: { type: String },
     description: { type: String },
     duration: { type: Number },
+    isPublished: { type: SchemaTypes.Boolean, default: false },
   },
   { timestamps: true }
 );
