@@ -10,7 +10,6 @@ class LoginService {
     this.userService = new UserService();
   }
   async userLogin(inputData: CreateLoginProps) {
-    Logging.info(inputData);
     try {
       return await LoginModel.findOneAndUpdate(
         { userId: inputData.userId },

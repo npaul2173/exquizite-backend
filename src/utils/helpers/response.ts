@@ -3,6 +3,7 @@
 import { StatusCodes } from "http-status-codes";
 import { JsonResponse } from "../interfaces/response.interface";
 import { IRes } from "../interfaces/express.interface";
+import Logging from "../library/logging";
 
 const getOKResponse = (res: IRes, data?: any, message?: string) => {
   const response = {
@@ -55,15 +56,15 @@ const getUnauthorizedResponse = (res: IRes, message?: string, data?: any) => {
 
 const getInternalServerErrorResponse = (
   res: IRes,
-  message?: string,
-  data?: any
+  error: unknown,
+  message: string = "Internal Server Error"
 ) => {
   const response = {
     status: false,
     statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
-    data,
     message,
   } as JsonResponse;
+  Logging.error("❌ Error: Could not update quiz", error);
   return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(response);
 };
 
