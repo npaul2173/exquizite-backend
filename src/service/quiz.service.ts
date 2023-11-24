@@ -33,6 +33,13 @@ class QuizService {
       throw new Error("❌ Error: Quiz Save service failed" + error);
     }
   }
+
+  async publishQuiz(quizId: string) {
+    try {
+    } catch (error) {
+      throw new Error("❌ Error: Quiz publish service failed" + error);
+    }
+  }
 }
 
 export default QuizService;
