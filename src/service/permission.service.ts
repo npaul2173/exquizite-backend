@@ -9,6 +9,13 @@ class PermissionService {
       throw new Error("❌ Error: Permission Save service failed");
     }
   }
+  async list() {
+    try {
+      return await PermissionModel.find();
+    } catch (error) {
+      throw new Error("❌ Error: Permission Save service failed");
+    }
+  }
 }
 
 export default PermissionService;
