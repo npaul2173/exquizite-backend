@@ -6,8 +6,8 @@ async function generatePermissionEnums() {
   const permissionService = new PermissionService();
   const list = await permissionService.list();
   const enumString = `enum AppPermissions { \n ${list
-    .map((item) => `${item.name} = "${item.name}"`)
-    .join(",\n")}\n}`;
+    .map((item) => `${item.name} = "${item._id}"`)
+    .join(",\n")}\n}\n\nexport default AppPermissions;\n`;
 
   const directory = path.join(__dirname, "../enums/");
   fs.writeFileSync(path.join(directory, "permissions.ts"), enumString);
