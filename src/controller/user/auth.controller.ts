@@ -1,4 +1,6 @@
 import { envVar } from "@/index";
+import { IRole } from "@/models/role/interface";
+import RoleService from "@/service/role.service";
 import UserService from "@/service/user.service";
 import { getConflictResponse } from "@/utils/helpers/response";
 import { INext, IReq, IRes } from "@/utils/interfaces/express.interface";
@@ -6,8 +8,10 @@ import jwt from "jsonwebtoken";
 
 class AuthController {
   private userService: UserService;
+  private roleService: RoleService;
   constructor() {
     this.userService = new UserService();
+    this.roleService = new RoleService();
   }
 
   authenticate = async (req: IReq, res: IRes, next: INext) => {
@@ -26,12 +30,17 @@ class AuthController {
         userId: string;
       };
 
-      const foundUser = await this.userService.findUserById(
+      const userFound = await this.userService.findUserById(
         decodedValue.userId
       );
-      if (!foundUser)
+      const roleFound = await this.roleService.findRoleById(
+        userFound?.userRoleId!
+      );
+
+      if (!userFound)
         return getConflictResponse(res, "Unauthorized - User not found");
-      req.userData = foundUser;
+      req.userData = userFound;
+      req.userRoles = roleFound as any;
       next();
     } catch (error) {
       return getConflictResponse(res, "Forbidden - Invalid token");

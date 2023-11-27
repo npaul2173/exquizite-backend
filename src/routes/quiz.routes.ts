@@ -1,5 +1,7 @@
 import QuizController from "@/controller/quiz.controller";
 import AuthController from "@/controller/user/auth.controller";
+import AuthMiddleware from "@/middleware/auth.middleware";
+import AppPermissions from "@/utils/enums/permissions";
 import { validateBody } from "@/utils/library/validate";
 import { publishValidation, updateQuizValidation } from "@/validations/quiz";
 import { Router } from "express";
@@ -9,11 +11,13 @@ class QuizRoutes {
   public baseRoute: string;
   private quizController: QuizController;
   private authController: AuthController;
+  private authMiddleware: AuthMiddleware;
   constructor() {
     this.routes = Router();
     this.baseRoute = "/quiz";
     this.quizController = new QuizController();
     this.authController = new AuthController();
+    this.authMiddleware = new AuthMiddleware();
     this.useRoutes();
   }
 
@@ -26,6 +30,7 @@ class QuizRoutes {
     this.routes.get(
       "/:quizId",
       this.authController.authenticate,
+      // this.authMiddleware.authorize([AppPermissions.VIEW_QUIZ]),
       this.quizController.getQuiz
     );
   }
