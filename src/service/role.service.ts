@@ -9,6 +9,13 @@ class RoleService {
       throw new Error("❌ Error:Get user role service failed");
     }
   }
+  async findRoleById(roleId: string) {
+    try {
+      return await RoleModel.findById(roleId);
+    } catch (error) {
+      throw new Error("❌ Error:Get user role service failed");
+    }
+  }
   async saveOne(inputData: CreateRoleProps) {
     try {
       return await RoleModel.create(inputData);
