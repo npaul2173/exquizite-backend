@@ -33,7 +33,11 @@ class QuestionService {
   async updateQuestion(inputData: EditQuestionProps) {
     try {
       const { questionId } = inputData;
-      return await QuestionModel.findByIdAndUpdate(questionId, inputData.patch);
+      return await QuestionModel.findByIdAndUpdate(
+        questionId,
+        inputData.patch,
+        { new: true }
+      );
     } catch (error) {
       throw new Error("❌ Error: Quiz update service failed" + error);
     }
