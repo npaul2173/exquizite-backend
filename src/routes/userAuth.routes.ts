@@ -45,6 +45,8 @@ class UserAuthRoutes {
       validateBody,
       this.loginController.loginUser
     );
+
+    this.routes.post("./sendOtpEmail", this.authController.sendOtp);
   }
 }
 

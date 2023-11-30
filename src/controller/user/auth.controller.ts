@@ -1,6 +1,6 @@
 import { envVar } from "@/index";
 import UserService from "@/service/user.service";
-import { getConflictResponse } from "@/utils/helpers/response";
+import { getConflictResponse, getOKResponse } from "@/utils/helpers/response";
 import { INext, IReq, IRes } from "@/utils/interfaces/express.interface";
 import jwt from "jsonwebtoken";
 
@@ -36,6 +36,10 @@ class AuthController {
     } catch (error) {
       return getConflictResponse(res, "Forbidden - Invalid token");
     }
+  };
+
+  sendOtp = async (req: IReq, res: IRes) => {
+    return getOKResponse(res);
   };
 }
 
