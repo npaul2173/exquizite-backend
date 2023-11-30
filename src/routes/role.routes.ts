@@ -18,12 +18,8 @@ class RoleRoutes {
 
   useRoutes() {
     this.post();
-    this.get();
   }
 
-  get() {
-    this.routes.get("/list", (req, res) => res.send({ message: "hello" }));
-  }
   post() {
     this.routes.post(
       "/create",

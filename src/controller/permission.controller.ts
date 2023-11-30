@@ -29,7 +29,7 @@ class PermissionController {
         return response;
       }
     } catch (error) {
-      return getInternalServerErrorResponse(res, error);
+      return getInternalServerErrorResponse(res, { error: undefined });
     }
   };
 }

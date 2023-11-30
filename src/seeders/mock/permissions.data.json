@@ -17,8 +17,12 @@
   },
 
   {
-    "name": "CREATE_QUESTIONS",
+    "name": "CREATE_QUESTION",
     "description": "Users can create questions"
+  },
+  {
+    "name": "CREATE_MULTIPLE_QUESTION",
+    "description": "Users can create multiple questions"
   },
   {
     "name": "EDIT_QUESTION",
@@ -41,11 +45,19 @@
     "description": "Users can publish the quiz that was created"
   },
   {
+    "name": "UNPUBLISH_QUIZ",
+    "description": "Users can Un-publish the quiz that was created"
+  },
+  {
     "name": "CREATE_SUB_ADMIN",
     "description": "Users can create sub admins"
   },
   {
     "name": "SEE_ADMIN_KEY_METRICS",
     "description": "Users cannot see critical admin key metrics data"
+  },
+  {
+    "name": "CREATE_PERMISSION",
+    "description": "Allows users to create new permission"
   }
 ]

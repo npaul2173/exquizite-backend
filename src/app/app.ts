@@ -7,6 +7,7 @@ import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import { envVar } from "..";
+// import generatePermissionEnums from "@/utils/scripts/generator";
 
 class App {
   public express: Application;
