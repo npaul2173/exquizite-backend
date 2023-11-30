@@ -2,6 +2,7 @@ import { QuestionModel } from "@/models/question";
 import {
   CreateMultipleQuestionsProps,
   CreateQuestionProps,
+  EditQuestionProps,
 } from "@/models/question/type";
 import { IQuiz } from "@/models/quiz/interface";
 
@@ -26,6 +27,19 @@ class QuestionService {
       return await QuestionModel.find({ quizId: input.quizId });
     } catch (error) {
       throw new Error("❌ Error: Question Find service failed");
+    }
+  }
+
+  async updateQuestion(inputData: EditQuestionProps) {
+    try {
+      const { questionId } = inputData;
+      return await QuestionModel.findByIdAndUpdate(
+        questionId,
+        inputData.patch,
+        { new: true }
+      );
+    } catch (error) {
+      throw new Error("❌ Error: Quiz update service failed" + error);
     }
   }
 }

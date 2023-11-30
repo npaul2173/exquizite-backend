@@ -4,6 +4,7 @@ export type IQuestion = {
   text: string;
   answers: string[];
   correctAnswer: number;
+  tags?: string[] | undefined;
   explanation?: string | undefined;
   points: number;
   createdAt: Date;
@@ -15,4 +16,10 @@ export type CreateMultipleQuestionsProps = { questions: CreateQuestionProps[] };
 export type createMultipleQuestionsProps = {
   quizId: string;
   questions: CreateQuestionProps[];
+};
+
+export type EditQuestionProps = {
+  quizId: string;
+  questionId: string;
+  patch: CreateQuestionProps;
 };

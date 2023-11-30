@@ -1,13 +1,12 @@
 import { router } from "@/routes";
+import DatabaseSeed from "@/seeders/database.seed";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
 import Logging from "@/utils/library/logging";
-import { Application, NextFunction } from "express";
-import express from "express";
+import express, { Application, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import { envVar } from "..";
-import DatabaseSeed from "@/seeders/database.seed";
 
 class App {
   public express: Application;
@@ -25,6 +24,7 @@ class App {
       .then(() => {
         this.initializeControllers();
         this.databaseSeed.initializeDatabaseModels();
+        // generatePermissionEnums();
       })
       .catch((error) => {
         console.error("Error initializing database:", error);

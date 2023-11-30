@@ -2,11 +2,13 @@ import "dotenv/config";
 import { cleanEnv, num, str } from "envalid";
 import App from "./app/app";
 import { IUser } from "./models/user/type";
+import { IRole } from "./models/role/interface";
 
 declare global {
   namespace Express {
     interface Request {
       userData?: IUser;
+      userRoles?: IRole;
     }
   }
 }

@@ -12,6 +12,11 @@
     "description": "Users can delete quiz"
   },
   {
+    "name": "VIEW_QUIZ",
+    "description": "Allows users to view quiz and details"
+  },
+
+  {
     "name": "CREATE_QUESTIONS",
     "description": "Users can create questions"
   },
