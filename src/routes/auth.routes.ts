@@ -22,7 +22,6 @@ class UserAuthRoutes {
     this.loginController = new LoginController();
     this.authController = new AuthController();
     this.authMiddleware = new AuthMiddleware();
-
     this.useRoutes();
   }
 

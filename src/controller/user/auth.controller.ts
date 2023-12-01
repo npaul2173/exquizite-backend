@@ -1,50 +1,25 @@
-import { envVar } from "@/index";
-import { IRole } from "@/models/role/interface";
-import RoleService from "@/service/role.service";
-import UserService from "@/service/user.service";
-import { getConflictResponse } from "@/utils/helpers/response";
-import { INext, IReq, IRes } from "@/utils/interfaces/express.interface";
-import jwt from "jsonwebtoken";
+import MailService from "@/service/mail.service";
+import AuthService from "@/service/suth.service";
+import { getOKResponse } from "@/utils/helpers/response";
+import { IReq, IRes } from "@/utils/interfaces/express.interface";
 
 class AuthController {
-  private userService: UserService;
-  private roleService: RoleService;
+  private authService: AuthService;
+  private mailService: MailService;
+
   constructor() {
-    this.userService = new UserService();
-    this.roleService = new RoleService();
+    this.authService = new AuthService();
+    this.mailService = new MailService();
   }
 
-  authenticate = async (req: IReq, res: IRes, next: INext) => {
-    const authHeader =
-      req.headers.authorization ||
-      (req.headers.Authorization as string | undefined);
+  sendOtp = async (req: IReq, res: IRes) => {
+    const data = await this.authService.createSixDigitOTP(
+      "email",
+      req.userData?._id.toString()!
+    );
 
-    if (!authHeader)
-      return getConflictResponse(res, "Unauthorized - Missing token");
-    else if (!authHeader?.startsWith("Bearer "))
-      return getConflictResponse(res, "Unauthorized - Invalid token");
-    const token = authHeader?.split(" ")[1];
-    try {
-      const decodedValue = jwt.verify(token, envVar.JSON_SECRET_KEY) as {
-        roleId: string;
-        userId: string;
-      };
-
-      const userFound = await this.userService.findUserById(
-        decodedValue.userId
-      );
-      const roleFound = await this.roleService.findRoleById(
-        userFound?.userRoleId!
-      );
-
-      if (!userFound)
-        return getConflictResponse(res, "Unauthorized - User not found");
-      req.userData = userFound;
-      req.userRoles = roleFound as any;
-      next();
-    } catch (error) {
-      return getConflictResponse(res, "Forbidden - Invalid token");
-    }
+    const response = await this.mailService.sendOTPEmail(data.code);
+    return getOKResponse(res, response);
   };
 }
 

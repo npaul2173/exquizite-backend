@@ -1,6 +1,20 @@
 import { NextFunction, Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { ValidationChain, body, validationResult } from "express-validator";
 import { StatusCodes } from "http-status-codes";
+
+const validateRequest = (validations: ValidationChain[]) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    for (let validation of validations) {
+      const result = await validation.run(req);
+      if (result.array.length) break;
+    }
+    const errors = validationResult(req);
+    if (errors.isEmpty()) return next();
+    return res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({
+      errors,
+    });
+  };
+};
 
 const validateBody = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
@@ -23,4 +37,9 @@ const requiredObjectValidation = (column: string, name: string) => {
   });
 };
 
-export { requiredValidation, validateBody, requiredObjectValidation };
+export {
+  requiredValidation,
+  validateBody,
+  requiredObjectValidation,
+  validateRequest,
+};
