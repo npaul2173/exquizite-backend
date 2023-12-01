@@ -29,14 +29,14 @@ class QuizRoutes {
   get() {
     this.routes.get(
       "/:quizId",
-      this.authController.authenticate,
+      this.authMiddleware.authenticate,
       this.quizController.getQuiz
     );
   }
   post() {
     this.routes.post(
       "/unPublish",
-      this.authController.authenticate,
+      this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.UNPUBLISH_QUIZ]),
       publishValidation,
       validateBody,
@@ -44,7 +44,7 @@ class QuizRoutes {
     );
     this.routes.post(
       "/publish",
-      this.authController.authenticate,
+      this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.PUBLISH_QUIZ]),
       publishValidation,
       validateBody,
@@ -52,13 +52,13 @@ class QuizRoutes {
     );
     this.routes.post(
       "/create",
-      this.authController.authenticate,
+      this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.CREATE_QUIZ]),
       this.quizController.createQuiz
     );
     this.routes.post(
       "/update",
-      this.authController.authenticate,
+      this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.EDIT_QUIZ]),
       updateQuizValidation,
       validateBody,

@@ -1,4 +1,8 @@
-import { sendEmail } from "@/utils/library/mail";
+import MailService from "@/service/mail.service";
+import {
+  getInternalServerErrorResponse,
+  getOKResponse,
+} from "@/utils/helpers/response";
 import { Router } from "express";
 import EmployeeRoutes from "./employee.routes";
 import PermissionRoutes from "./permission.routes";
@@ -6,11 +10,6 @@ import QuestionRoutes from "./question.routes";
 import QuizRoutes from "./quiz.routes";
 import RoleRoutes from "./role.routes";
 import UserAuthRoutes from "./userAuth.routes";
-import MailService from "@/service/mail.service";
-import {
-  getInternalServerErrorResponse,
-  getOKResponse,
-} from "@/utils/helpers/response";
 
 const userAuthRoutes = new UserAuthRoutes();
 const employeeRoutes = new EmployeeRoutes();

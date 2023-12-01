@@ -1,6 +1,12 @@
 import mongoose, { SchemaTypes } from "mongoose";
 import { IOtp } from "./types";
 
+// Enum for OTP types
+export enum OTPType {
+  EMAIL = "email",
+  MOBILE = "mobile",
+}
+
 const schema = new mongoose.Schema(
   {
     userId: {
@@ -11,6 +17,11 @@ const schema = new mongoose.Schema(
     code: {
       required: true,
       type: SchemaTypes.String,
+    },
+    type: {
+      type: String,
+      enum: [OTPType.EMAIL, OTPType.MOBILE],
+      required: true,
     },
   },
   { timestamps: true }

@@ -1,5 +1,4 @@
 import { IReq, IRes, INext } from "@/utils/interfaces/express.interface";
-import Logging from "@/utils/library/logging";
 import AppPermissions from "@/utils/enums/permissions";
 import {
   getConflictResponse,
