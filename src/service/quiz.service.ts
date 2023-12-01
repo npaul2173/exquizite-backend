@@ -64,6 +64,14 @@ class QuizService {
       throw new Error("❌ Error: Quiz update service failed" + error);
     }
   }
+
+  async deleteQuiz(quizId: string) {
+    try {
+      return await QuizModel.findByIdAndRemove(quizId);
+    } catch (error) {
+      throw new Error("❌ Error: Quiz delete service failed" + error);
+    }
+  }
 }
 
 export default QuizService;

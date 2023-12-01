@@ -1,9 +1,9 @@
-import { ObjectId } from "mongoose";
+import mongoose from "mongoose";
 
 export type ISession = {
-  _id: ObjectId;
+  _id: mongoose.Types.ObjectId;
   accessToken: string;
-  userId: ObjectId;
+  userId: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 };

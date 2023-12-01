@@ -1,15 +1,17 @@
-import { CreateQuizProps, UpdateQuizProps } from "@/models/quiz/interface";
+import {
+  CreateQuizProps,
+  DeleteQuizProps,
+  UpdateQuizProps,
+} from "@/models/quiz/interface";
 import QuestionService from "@/service/question.service";
 import QuizService from "@/service/quiz.service";
 import {
   getConflictResponse,
   getInternalServerErrorResponse,
-  getNoContentResponse,
   getNotFoundResponse,
   getOKResponse,
 } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
-import Logging from "@/utils/library/logging";
 
 class QuizController {
   private quizService: QuizService;
@@ -79,6 +81,28 @@ class QuizController {
           const quiz = await this.quizService.updateQuiz(inputData);
           const message = "Quiz updated successfully";
           return getOKResponse(res, quiz, message);
+        }
+      } else {
+        const message = "Quiz not found";
+        return getNotFoundResponse(res, message);
+      }
+    } catch (error) {
+      return getInternalServerErrorResponse(res, error);
+    }
+  };
+
+  deleteQuiz = async (req: IReq, res: IRes) => {
+    const inputData = { ...req.body } as DeleteQuizProps;
+    try {
+      const quizFound = await this.quizService.findOne(inputData.quizId);
+      if (quizFound) {
+        if (quizFound.isPublished)
+          return getConflictResponse(res, "Published quiz cannot be modified");
+        else {
+          await this.quizService.deleteQuiz(inputData.quizId);
+          await this.questionService.delQuesForQuiz(inputData.quizId);
+          const message = "Quiz deleted successfully";
+          return getOKResponse(res, message);
         }
       } else {
         const message = "Quiz not found";

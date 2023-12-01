@@ -13,4 +13,15 @@ const validation = [
 ];
 
 const publishValidation = [requiredValidation("quizId", "QuizId")];
-export { validation as updateQuizValidation, publishValidation };
+
+const deleteValidation = [
+  requiredValidation("quizId", "QuizId")
+    .isMongoId()
+    .withMessage("Not a valid QuizId"),
+];
+
+export {
+  validation as updateQuizValidation,
+  publishValidation,
+  deleteValidation,
+};
