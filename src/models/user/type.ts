@@ -1,4 +1,4 @@
-import mongoose, { ObjectId, Schema } from "mongoose";
+import mongoose from "mongoose";
 
 export type IUser = {
   _id: mongoose.Types.ObjectId;

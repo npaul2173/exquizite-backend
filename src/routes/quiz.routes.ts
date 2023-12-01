@@ -3,7 +3,11 @@ import AuthController from "@/controller/user/auth.controller";
 import AuthMiddleware from "@/middleware/auth.middleware";
 import AppPermissions from "@/utils/enums/permissions";
 import { validateBody } from "@/utils/library/validate";
-import { publishValidation, updateQuizValidation } from "@/validations/quiz";
+import {
+  deleteValidation,
+  publishValidation,
+  updateQuizValidation,
+} from "@/validations/quiz";
 import { Router } from "express";
 
 class QuizRoutes {
@@ -63,6 +67,14 @@ class QuizRoutes {
       updateQuizValidation,
       validateBody,
       this.quizController.updateQuiz
+    );
+    this.routes.post(
+      "/delete",
+      this.authController.authenticate,
+      this.authMiddleware.authorize([AppPermissions.DELETE_QUIZ]),
+      deleteValidation,
+      validateBody,
+      this.quizController.deleteQuiz
     );
   }
 }

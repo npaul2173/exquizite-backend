@@ -39,7 +39,15 @@ class QuestionService {
         { new: true }
       );
     } catch (error) {
-      throw new Error("❌ Error: Quiz update service failed" + error);
+      throw new Error("❌ Error: Question update service failed" + error);
+    }
+  }
+
+  async delQuesForQuiz(quizId: string) {
+    try {
+      return await QuestionModel.deleteMany({ quizId });
+    } catch (error) {
+      throw new Error("❌ Error: Question delete service failed");
     }
   }
 }
