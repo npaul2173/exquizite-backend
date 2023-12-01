@@ -19,4 +19,8 @@ type UpdateQuizProps = {
   patch: CreateQuizProps & { isPublished?: boolean };
 };
 
-export { CreateQuizProps, GetQuizProps, UpdateQuizProps };
+type DeleteQuizProps = {
+  quizId: string;
+};
+
+export { CreateQuizProps, GetQuizProps, UpdateQuizProps, DeleteQuizProps };
