@@ -15,4 +15,10 @@ const questionEditValidation = [
   ),
 ];
 
-export { questionEditValidation };
+const deleteQuestionValidation = [
+  requiredValidation("questionId", "QuestionId")
+    .isMongoId()
+    .withMessage("Not a valid QuestionId"),
+];
+
+export { questionEditValidation, deleteQuestionValidation };
