@@ -2,7 +2,7 @@ import QuestionController from "@/controller/question.controller";
 import AuthController from "@/controller/user/auth.controller";
 import AuthMiddleware from "@/middleware/auth.middleware";
 import AppPermissions from "@/utils/enums/permissions";
-import { validateBody } from "@/utils/library/validate";
+import { validateBody, validateRequest } from "@/utils/library/validate";
 import {
   deleteQuestionValidation,
   questionEditValidation,
@@ -50,10 +50,9 @@ class QuestionRoutes {
     );
     this.routes.post(
       "/delete",
-      this.authController.authenticate,
+      this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.DELETE_QUESTION]),
-      deleteQuestionValidation,
-      validateBody,
+      validateRequest(deleteQuestionValidation),
       this.questionController.deleteQuestion
     );
   }
