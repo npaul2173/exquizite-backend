@@ -23,3 +23,7 @@ export type EditQuestionProps = {
   questionId: string;
   patch: CreateQuestionProps;
 };
+
+export type DeleteQuestionProps = {
+  questionId: string;
+};

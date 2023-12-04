@@ -2,8 +2,11 @@ import QuestionController from "@/controller/question.controller";
 import AuthController from "@/controller/user/auth.controller";
 import AuthMiddleware from "@/middleware/auth.middleware";
 import AppPermissions from "@/utils/enums/permissions";
-import { validateBody } from "@/utils/library/validate";
-import { questionEditValidation } from "@/validations/question/question";
+import { validateBody, validateRequest } from "@/utils/library/validate";
+import {
+  deleteQuestionValidation,
+  questionEditValidation,
+} from "@/validations/question/question";
 import { Router } from "express";
 
 class QuestionRoutes {
@@ -44,6 +47,13 @@ class QuestionRoutes {
       questionEditValidation,
       validateBody,
       this.questionController.editQuestion
+    );
+    this.routes.post(
+      "/delete",
+      this.authMiddleware.authenticate,
+      this.authMiddleware.authorize([AppPermissions.DELETE_QUESTION]),
+      validateRequest(deleteQuestionValidation),
+      this.questionController.deleteQuestion
     );
   }
 }

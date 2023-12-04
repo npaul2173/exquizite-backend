@@ -1,6 +1,7 @@
 import {
   CreateMultipleQuestionsProps,
   CreateQuestionProps,
+  DeleteQuestionProps,
   EditQuestionProps,
 } from "@/models/question/type";
 import { QuizModel } from "@/models/quiz";
@@ -72,6 +73,32 @@ class QuestionController {
       } else {
         const message = "Quiz not found";
         return getNotFoundResponse(res, message);
+      }
+    } catch (error) {
+      return getInternalServerErrorResponse(res, error);
+    }
+  };
+
+  deleteQuestion = async (req: IReq, res: IRes) => {
+    try {
+      const inputData = { ...req.body } as DeleteQuestionProps;
+      const quizFound = await this.questionService.isPublishedQuizQues(
+        inputData?.questionId
+      );
+      if (quizFound) {
+        if (quizFound.isPublished) {
+          return getConflictResponse(
+            res,
+            "Published quiz questions cannot be deleted"
+          );
+        } else {
+          const deleteQuestion =
+            await this.questionService.deleteSingleQuestion(
+              inputData?.questionId
+            );
+          const message = "Question deleted successfully";
+          return getOKResponse(res, message);
+        }
       }
     } catch (error) {
       return getInternalServerErrorResponse(res, error);
