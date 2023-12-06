@@ -1,5 +1,4 @@
 import QuizController from "@/controller/quiz.controller";
-import AuthController from "@/controller/user/auth.controller";
 import AuthMiddleware from "@/middleware/auth.middleware";
 import AppPermissions from "@/utils/enums/permissions";
 import { validateBody } from "@/utils/library/validate";
@@ -14,14 +13,12 @@ class QuizRoutes {
   public routes: Router;
   public baseRoute: string;
   private quizController: QuizController;
-  private authController: AuthController;
-  private authMiddleware: AuthMiddleware;
+   private authMiddleware: AuthMiddleware;
   constructor() {
     this.routes = Router();
     this.baseRoute = "/quiz";
     this.quizController = new QuizController();
-    this.authController = new AuthController();
-    this.authMiddleware = new AuthMiddleware();
+     this.authMiddleware = new AuthMiddleware();
     this.useRoutes();
   }
 
@@ -69,8 +66,8 @@ class QuizRoutes {
       this.quizController.updateQuiz
     );
     this.routes.post(
-      "/delete",
-      this.authController.authenticate,
+      "/delete",      
+       this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.DELETE_QUIZ]),
       deleteValidation,
       validateBody,
