@@ -1,7 +1,7 @@
 import QuizController from "@/controller/quiz.controller";
 import AuthMiddleware from "@/middleware/auth.middleware";
 import AppPermissions from "@/utils/enums/permissions";
-import { validateBody } from "@/utils/library/validate";
+import { validateBody, validateRequest } from "@/utils/library/validate";
 import {
   createValidation,
   deleteValidation,
@@ -56,7 +56,7 @@ class QuizRoutes {
       "/create",
       this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.CREATE_QUIZ]),
-      createValidation,
+      validateRequest(createValidation),
       this.quizController.createQuiz
     );
     this.routes.post(
