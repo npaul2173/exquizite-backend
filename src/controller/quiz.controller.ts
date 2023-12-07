@@ -23,6 +23,7 @@ class QuizController {
 
   createQuiz = async (req: IReq, res: IRes) => {
     try {
+      console.log("the req-->", req);
       const inputData = { ...req.body } as CreateQuizProps;
       const response = await this.quizService.create(inputData);
       res.send(response);

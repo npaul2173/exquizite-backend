@@ -3,6 +3,11 @@ import {
   requiredValidation,
 } from "@/utils/library/validate";
 
+const createValidation = [
+  requiredValidation("title", "Title"),
+  requiredValidation("topic", "Topic"),
+];
+
 const validation = [
   requiredValidation("quizId", "QuizId")
     .isMongoId()
@@ -24,4 +29,5 @@ export {
   validation as updateQuizValidation,
   publishValidation,
   deleteValidation,
+  createValidation,
 };

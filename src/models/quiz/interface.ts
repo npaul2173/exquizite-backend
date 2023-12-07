@@ -1,3 +1,5 @@
+import mongoose from "mongoose";
+
 export type IQuiz = {
   title: string;
   topic: string;
@@ -8,9 +10,13 @@ export type IQuiz = {
   duration: number;
   createdAt: Date;
   updatedAt: Date;
+  createdBy: mongoose.Types.ObjectId;
 };
 
-type CreateQuizProps = Omit<IQuiz, "createdAt" | "updatedAt" | "isPublished">;
+type CreateQuizProps = Omit<
+  IQuiz,
+  "createdAt" | "updatedAt" | "isPublished" | "createdBy"
+>;
 
 type GetQuizProps = { quizId: string };
 
