@@ -55,7 +55,7 @@ class QuizRoutes {
     this.routes.post(
       "/create",
       this.authMiddleware.authenticate,
-      // this.authMiddleware.authorize([AppPermissions.CREATE_QUIZ]),
+      this.authMiddleware.authorize([AppPermissions.CREATE_QUIZ]),
       createValidation,
       this.quizController.createQuiz
     );
