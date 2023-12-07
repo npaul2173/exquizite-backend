@@ -13,6 +13,7 @@ import {
   getOKResponse,
 } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
+import Logging from "@/utils/library/logging";
 
 class QuizController {
   private quizService: QuizService;
@@ -85,6 +86,13 @@ class QuizController {
     try {
       const quizFound = await this.quizService.findOne(inputData.quizId);
       if (quizFound) {
+        Logging.info(req.userData?._id, quizFound?.createdBy);
+        if (!req.userData?._id.equals(quizFound.createdBy!))
+          return getConflictResponse(
+            res,
+            "You are not authorized to perform this action"
+          );
+
         if (quizFound.isPublished)
           return getConflictResponse(res, "Published quiz cannot be modified");
         else {
