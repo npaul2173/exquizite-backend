@@ -10,6 +10,7 @@ const schema = new mongoose.Schema(
     description: { type: String },
     duration: { type: Number },
     isPublished: { type: SchemaTypes.Boolean, default: false },
+    createdBy: { type: SchemaTypes.ObjectId, required: true },
   },
   { timestamps: true }
 );

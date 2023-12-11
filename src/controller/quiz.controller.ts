@@ -6,12 +6,14 @@ import {
 import QuestionService from "@/service/question.service";
 import QuizService from "@/service/quiz.service";
 import {
+  getBadRequestResponse,
   getConflictResponse,
   getInternalServerErrorResponse,
   getNotFoundResponse,
   getOKResponse,
 } from "@/utils/helpers/response";
 import { IReq, IRes } from "@/utils/interfaces/express.interface";
+import Logging from "@/utils/library/logging";
 
 class QuizController {
   private quizService: QuizService;
@@ -23,11 +25,20 @@ class QuizController {
 
   createQuiz = async (req: IReq, res: IRes) => {
     try {
-      const inputData = { ...req.body } as CreateQuizProps;
-      const response = await this.quizService.create(inputData);
-      res.send(response);
+      const inputData = {
+        ...req.body,
+        createdBy: req?.userData?._id,
+      } as CreateQuizProps;
+      const quiz = await this.quizService.saveOne(inputData);
+      if (quiz) {
+        const message = "Quiz created successfully";
+        return getOKResponse(res, quiz, message);
+      } else {
+        const message = "Quiz not created";
+        return getBadRequestResponse(res, message, inputData);
+      }
     } catch (error) {
-      throw new Error("❌ Error: Could not create Quiz");
+      return getInternalServerErrorResponse(res, error);
     }
   };
 
@@ -75,6 +86,13 @@ class QuizController {
     try {
       const quizFound = await this.quizService.findOne(inputData.quizId);
       if (quizFound) {
+        Logging.info(req.userData?._id, quizFound?.createdBy);
+        if (!req.userData?._id.equals(quizFound.createdBy!))
+          return getConflictResponse(
+            res,
+            "You are not authorized to perform this action"
+          );
+
         if (quizFound.isPublished)
           return getConflictResponse(res, "Published quiz cannot be modified");
         else {

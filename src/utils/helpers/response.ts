@@ -64,7 +64,7 @@ const getInternalServerErrorResponse = (
     statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
     message,
   } as JsonResponse;
-  Logging.error("❌ Error: Could not update quiz", error);
+  Logging.error(`❌ Error:${message}`, error);
   return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(response);
 };
 
@@ -78,6 +78,16 @@ const getNotFoundResponse = (res: IRes, message?: string, data?: any) => {
   return res.status(StatusCodes.NOT_FOUND).send(response);
 };
 
+const getBadRequestResponse = (res: IRes, message?: string, data?: any) => {
+  const response = {
+    status: false,
+    statusCode: StatusCodes.BAD_REQUEST,
+    data,
+    message,
+  } as JsonResponse;
+  return res.status(StatusCodes.BAD_REQUEST).send(response);
+};
+
 export {
   getCreateResponse,
   getOKResponse,
@@ -86,4 +96,5 @@ export {
   getInternalServerErrorResponse,
   getNotFoundResponse,
   getNoContentResponse,
+  getBadRequestResponse,
 };
