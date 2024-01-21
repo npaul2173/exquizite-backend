@@ -1,6 +1,6 @@
 import { router } from "@/routes";
 import DatabaseSeed from "@/seeders/database.seed";
-import { IReq, IRes } from "@/utils/interfaces/express.interface";
+import { INext, IReq, IRes } from "@/utils/interfaces/express.interface";
 import Logging from "@/utils/library/logging";
 import express, { Application, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
@@ -24,14 +24,13 @@ class App {
     this.initializeDatabaseConnection()
       .then(() => {
         this.initializeControllers();
+        this.globalErrorHandler();
         this.databaseSeed.initializeDatabaseModels();
         // generatePermissionEnums();
       })
       .catch((error) => {
         console.error("Error initializing database:", error);
       });
-
-    this.handleError();
   }
 
   private async initializeDatabaseConnection() {
@@ -45,14 +44,32 @@ class App {
     }
   }
 
-  private async handleError() {
-    this.express.use((err: any, req: IReq, res: IRes, next: NextFunction) => {
-      // Handle the error here.
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .send("Something went wrong!  - Error Thrown");
+  private globalErrorHandler() {
+    this.express.use(function (err: any, _: IReq, res: IRes, next: INext) {
+      if (!err) {
+        return next();
+      }
+      Logging.error(err);
+
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+        error: {
+          success: false,
+          message: "Something went wrong!  - Error Thrown",
+          error: err.errors,
+        },
+      });
     });
   }
+
+  // private async handleError() {
+  //   this.express.use((err: any, req: IReq, res: IRes, next: NextFunction) => {
+  //     // Handle the error here.
+  //     res
+  //       .status(StatusCodes.INTERNAL_SERVER_ERROR)
+  //       .send("Something went wrong!  - Error Thrown");
+  //   });
+  // }
+
   private initializeControllers(): void {
     this.express.get("/", (_, res) => {
       res.status(StatusCodes.OK).json({

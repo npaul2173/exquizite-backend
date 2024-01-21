@@ -70,7 +70,7 @@ class QuizRoutes {
     );
     this.routes.post(
       "/delete",
-      this.authController.authenticate,
+      this.authMiddleware.authenticate,
       this.authMiddleware.authorize([AppPermissions.DELETE_QUIZ]),
       deleteValidation,
       validateBody,
